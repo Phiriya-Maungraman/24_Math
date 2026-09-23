@@ -5,12 +5,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainGui extends JFrame{
+public class MainGui extends JFrame implements ActionListener{
     Container cp;
-    JButton N1,N2,N3,N4,re,ra;
+    JButton N1,N2,N3,N4,re,ra,st,ht,mt;
     JTextField ip;
-    JLabel eq,sum;
+    JLabel eq,sum,mid,scr,scr_num;
     public  MainGui(){
         Initial();
         RandomNumber();
@@ -18,6 +20,11 @@ public class MainGui extends JFrame{
         ResetButton();
         InputNum();
         Sum();
+        SettingButton();
+        HowtoButton();
+        MidTimer();
+        MainTimer();
+        ShowScore();
         Finally();
     }
 
@@ -27,25 +34,25 @@ public class MainGui extends JFrame{
     }
     public void RandomNumber(){
         N1 = new JButton("0");
-        N1.setBounds(100,70,50,25);
+        N1.setBounds(100,80,50,25);
         N1.setSize(100,100);
         N1.setFont(new Font("",Font.PLAIN,100));
         N1.setBackground(Color.WHITE);
         N1.setFocusable(false);
         N2 = new JButton("0");
-        N2.setBounds(250,70,50,25);
+        N2.setBounds(250,80,50,25);
         N2.setSize(100,100);
         N2.setFont(new Font("",Font.PLAIN,100));
         N2.setBackground(Color.WHITE);
         N2.setFocusable(false);
         N3 = new JButton("0");
-        N3.setBounds(400,70,50,25);
+        N3.setBounds(400,80,50,25);
         N3.setSize(100,100);
         N3.setFont(new Font("",Font.PLAIN,100));
         N3.setBackground(Color.WHITE);
         N3.setFocusable(false);
         N4 = new JButton("0");
-        N4.setBounds(550,70,50,25);
+        N4.setBounds(550,80,50,25);
         N4.setSize(100,100);
         N4.setFont(new Font("",Font.PLAIN,100));
         N4.setBackground(Color.WHITE);
@@ -53,8 +60,8 @@ public class MainGui extends JFrame{
         cp.add(N1); cp.add(N2); cp.add(N3); cp.add(N4);
     }
     public void RandomButton(){
-        ImageIcon rlg = new ImageIcon("./Icon/RandomIcon.png");
-        ra = new JButton("Random",rlg);
+        ImageIcon raic = new ImageIcon("./Icon/RandomIcon.png");
+        ra = new JButton("Random",raic);
         ra.setBounds(200,220,50,25);
         ra.setSize(350,100);
         ra.setFont(new Font("",Font.PLAIN,50));
@@ -65,8 +72,8 @@ public class MainGui extends JFrame{
         cp.add(ra);
     }
     public void ResetButton(){
-        ImageIcon relg = new ImageIcon("./Icon/ResetIcon.png");
-        re = new JButton("Reset",relg);
+        ImageIcon reic = new ImageIcon("./Icon/ResetIcon.png");
+        re = new JButton("Reset",reic);
         re.setBounds(30,250,50,25);
         re.setSize(150,50);
         re.setFont(new Font("",Font.PLAIN,20));
@@ -97,7 +104,56 @@ public class MainGui extends JFrame{
         sum.setFont(new Font("",Font.PLAIN,70));
         cp.add(eq); cp.add(sum);
     }
-    public void Finally(){
+    public void SettingButton(){
+        ImageIcon setic = new ImageIcon("./Icon/SettingIcon.png");
+        st = new JButton("Setting",setic);
+        st.setBounds(700,10,50,30);
+        st.setSize(125,30);
+        st.setFont(new Font("",Font.BOLD,17));
+        st.setBackground(Color.WHITE);
+        st.setHorizontalAlignment(JButton.LEFT);
+        st.setFocusable(false);
+        cp.add(st);
+    }
+    public void HowtoButton(){
+        ht = new JButton("#How2Play");
+        ht.setBounds(550,10,50,30);
+        ht.setSize(125,30);
+        ht.setFont(new Font("",Font.BOLD,17));
+        ht.setBackground(Color.WHITE);
+        ht.setFocusable(false);
+        cp.add(ht);
+    }
+    public void MidTimer(){
+        mid = new JLabel("00:30");
+        mid.setBounds(300,5,50,30);
+        mid.setSize(200,60);
+        mid.setFont(new Font("",Font.PLAIN,60));
+        mid.setForeground(new Color(0,0,255));
+        mid.setBackground(Color.WHITE);
+        cp.add(mid);
+    }
+    public void MainTimer(){
+        mt = new JButton("05:00");
+        mt.setBounds(25,10,50,30);
+        mt.setSize(100,30);
+        mt.setFont(new Font("",Font.BOLD,25));
+        mt.setBackground(Color.WHITE);
+        cp.add(mt);
+        mt.setFocusable(false);
+    }
+    public void ShowScore(){
+        scr = new JLabel("Score:");
+        scr.setBounds(600,250,50,25);
+        scr.setSize(150,50);
+        scr.setFont(new Font("",Font.PLAIN,35));
+        scr_num = new JLabel("100");
+        scr_num.setBounds(720,250,50,25);
+        scr_num.setSize(150,50);
+        scr_num.setFont(new Font("",Font.PLAIN,40));
+        cp.add(scr); cp.add(scr_num);
+    }
+        public void Finally(){
         this.setTitle("24Math");
         this.setSize(850,750);
         this.setLocationRelativeTo(null);
@@ -105,5 +161,10 @@ public class MainGui extends JFrame{
         ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
         this.setIconImage(logo.getImage());
         this.setVisible(true);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }
