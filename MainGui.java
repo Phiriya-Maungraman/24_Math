@@ -1,14 +1,8 @@
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class MainGui extends JFrame implements ActionListener{
+public class MainGui extends JFrame implements ActionListener,KeyListener,MouseListener{
     Container cp;
     JButton N1,N2,N3,N4,re,ra,st,ht,mt;
     JTextField ip;
@@ -26,8 +20,14 @@ public class MainGui extends JFrame implements ActionListener{
         MainTimer();
         ShowScore();
         Finally();
+        event();
     }
 
+    public void event(){
+        ip.addKeyListener(this);
+        re.addMouseListener(this);
+
+    }
     public void Initial(){
         cp = this.getContentPane();
         cp.setLayout(null);
@@ -147,7 +147,7 @@ public class MainGui extends JFrame implements ActionListener{
         scr.setBounds(600,250,50,25);
         scr.setSize(150,50);
         scr.setFont(new Font("",Font.PLAIN,35));
-        scr_num = new JLabel("100");
+        scr_num = new JLabel("0");
         scr_num.setBounds(720,250,50,25);
         scr_num.setSize(150,50);
         scr_num.setFont(new Font("",Font.PLAIN,40));
@@ -166,5 +166,53 @@ public class MainGui extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    }
+    @Override
+    public void keyTyped(KeyEvent e){
+        if(e.getSource()==ip){
+            char c = e.getKeyChar();
+            if(!Character.isDigit(c) && c != '+' && c != '*'&& c != '/'&& c != '-' ){
+                e.consume();    
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource()==re){
+            ip.setText("");
+        }
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+       
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
     }
 }
