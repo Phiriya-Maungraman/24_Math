@@ -4,12 +4,14 @@ import java.awt.event.*;
 
 public class MainGui extends JFrame implements ActionListener,KeyListener,MouseListener{
     Container cp;
-    JButton N1,N2,N3,N4,re,ra,st,ht,mt;
+    JButton N1,N2,N3,N4,re,ra,st,ht;
     JTextField ip;
-    JLabel eq,sum,mid,scr,scr_num;
+    JLabel eq,sum,mid,scr,scr_num,mt;
+    RandomNumber randomizer;
     public  MainGui(){
         Initial();
         RandomNumber();
+        randomizer = new RandomNumber(new JButton[]{N1, N2, N3, N4});
         RandomButton();
         ResetButton();
         InputNum();
@@ -39,18 +41,21 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         N1.setFont(new Font("",Font.PLAIN,100));
         N1.setBackground(Color.WHITE);
         N1.setFocusable(false);
+
         N2 = new JButton("0");
         N2.setBounds(250,80,50,25);
         N2.setSize(100,100);
         N2.setFont(new Font("",Font.PLAIN,100));
         N2.setBackground(Color.WHITE);
         N2.setFocusable(false);
+
         N3 = new JButton("0");
         N3.setBounds(400,80,50,25);
         N3.setSize(100,100);
         N3.setFont(new Font("",Font.PLAIN,100));
         N3.setBackground(Color.WHITE);
         N3.setFocusable(false);
+
         N4 = new JButton("0");
         N4.setBounds(550,80,50,25);
         N4.setSize(100,100);
@@ -70,6 +75,7 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         ra.setIconTextGap(20);
         ra.setFocusable(false);
         cp.add(ra);
+        ra.addActionListener(e -> randomizer.randomizeAll());
     }
     public void ResetButton(){
         ImageIcon reic = new ImageIcon("./Icon/ResetIcon.png");
@@ -132,14 +138,18 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         mid.setForeground(new Color(0,0,255));
         mid.setBackground(Color.WHITE);
         cp.add(mid);
+        CountdownTimer midTimer = new CountdownTimer(30, mid);
+        midTimer.start(0, 1000);
     }
     public void MainTimer(){
-        mt = new JButton("05:00");
+        mt = new JLabel("05:00");
         mt.setBounds(25,10,50,30);
         mt.setSize(100,30);
         mt.setFont(new Font("",Font.BOLD,25));
         mt.setBackground(Color.WHITE);
         cp.add(mt);
+        CountdownTimer mainTimer = new CountdownTimer(5*60, mt);
+        mainTimer.start(0, 1000);
         mt.setFocusable(false);
     }
     public void ShowScore(){
