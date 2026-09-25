@@ -6,7 +6,7 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
     Container cp;
     JButton N1,N2,N3,N4,re,ra,st,ht;
     JTextField ip;
-    JLabel eq,sum,mid,scr,scr_num,mt;
+    JLabel eq,sum,mid,scr,scr_num,mt,htp;
     public  MainGui(){
         Initial();
         RandomNumber();
@@ -26,7 +26,7 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
     public void event(){
         ip.addKeyListener(this);
         re.addMouseListener(this);
-
+        ht.addMouseListener(this);
     }
     public void Initial(){
         cp = this.getContentPane();
@@ -81,9 +81,9 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         re.setSize(150,50);
         re.setFont(new Font("",Font.PLAIN,20));
         re.setBackground(Color.WHITE);
-        ra.setHorizontalTextPosition(JButton.RIGHT);
-        ra.setVerticalTextPosition(JButton.CENTER);
-        ra.setIconTextGap(20);
+        re.setHorizontalTextPosition(JButton.RIGHT);
+        re.setVerticalTextPosition(JButton.CENTER);
+        re.setIconTextGap(5);
         re.setFocusable(false);
         cp.add(re);
     }
@@ -126,6 +126,20 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         ht.setBackground(Color.WHITE);
         ht.setFocusable(false);
         cp.add(ht);
+    }
+    public void HowtoPlay(){
+        JFrame how = new JFrame();
+        ImageIcon htscreen = new ImageIcon("./Icon/HowToPlay.png");
+        htp = new JLabel(htscreen);
+        htp.setBounds(-5,-290,1000,1000);
+        htp.setSize(1000,1000);
+        how.add(htp);
+        how.setTitle("#How2Play");
+        how.setSize(1000,500);
+        how.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        how.setLocationRelativeTo(null);
+        how.setLayout(null);
+        how.setVisible(true);
     }
     public void MidTimer(){
         mid = new JLabel("00:30");
@@ -198,6 +212,7 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
     public void mouseClicked(MouseEvent e) {
         if(e.getSource()==re){
             ip.setText("");
+        
         }
         
     }
@@ -215,7 +230,9 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
 
     @Override
     public void mousePressed(MouseEvent e) {
-       
+        if(e.getSource()==ht){
+            HowtoPlay();
+        }
     }
 
     @Override
