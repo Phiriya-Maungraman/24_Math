@@ -1,12 +1,18 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-public class MainGui extends JFrame implements ActionListener,KeyListener,MouseListener{
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainGui extends JFrame implements ActionListener{
     Container cp;
-    JButton N1,N2,N3,N4,re,ra,st,ht;
+    JButton N1,N2,N3,N4,re,ra,st,ht,mt;
     JTextField ip;
-    JLabel eq,sum,mid,scr,scr_num,mt;
+    JLabel eq,sum,mid,scr,scr_num;
     public  MainGui(){
         Initial();
         RandomNumber();
@@ -20,14 +26,8 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         MainTimer();
         ShowScore();
         Finally();
-        event();
     }
 
-    public void event(){
-        ip.addKeyListener(this);
-        re.addMouseListener(this);
-
-    }
     public void Initial(){
         cp = this.getContentPane();
         cp.setLayout(null);
@@ -39,21 +39,18 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         N1.setFont(new Font("",Font.PLAIN,100));
         N1.setBackground(Color.WHITE);
         N1.setFocusable(false);
-
         N2 = new JButton("0");
         N2.setBounds(250,80,50,25);
         N2.setSize(100,100);
         N2.setFont(new Font("",Font.PLAIN,100));
         N2.setBackground(Color.WHITE);
         N2.setFocusable(false);
-
         N3 = new JButton("0");
         N3.setBounds(400,80,50,25);
         N3.setSize(100,100);
         N3.setFont(new Font("",Font.PLAIN,100));
         N3.setBackground(Color.WHITE);
         N3.setFocusable(false);
-
         N4 = new JButton("0");
         N4.setBounds(550,80,50,25);
         N4.setSize(100,100);
@@ -135,18 +132,14 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         mid.setForeground(new Color(0,0,255));
         mid.setBackground(Color.WHITE);
         cp.add(mid);
-        CountdownTimer midTimer = new CountdownTimer(30, mid);
-        midTimer.start(0, 1000);
     }
     public void MainTimer(){
-        mt = new JLabel("05:00");
+        mt = new JButton("05:00");
         mt.setBounds(25,10,50,30);
         mt.setSize(100,30);
         mt.setFont(new Font("",Font.BOLD,25));
         mt.setBackground(Color.WHITE);
         cp.add(mt);
-        CountdownTimer mainTimer = new CountdownTimer(5*60, mt);
-        mainTimer.start(0, 1000);
         mt.setFocusable(false);
     }
     public void ShowScore(){
@@ -154,7 +147,7 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
         scr.setBounds(600,250,50,25);
         scr.setSize(150,50);
         scr.setFont(new Font("",Font.PLAIN,35));
-        scr_num = new JLabel("0");
+        scr_num = new JLabel("100");
         scr_num.setBounds(720,250,50,25);
         scr_num.setSize(150,50);
         scr_num.setFont(new Font("",Font.PLAIN,40));
@@ -173,58 +166,5 @@ public class MainGui extends JFrame implements ActionListener,KeyListener,MouseL
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
-    @Override
-    public void keyTyped(KeyEvent e){
-        if(e.getSource()==ip){
-            char c = e.getKeyChar();
-            if(!Character.isDigit(c) && c != '+' && c != '*'&& c != '/'&& c != '-' ){
-                e.consume();    
-            }
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(e.getSource()==re){
-            ip.setText("");
-        }
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-       
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    public JButton[] getButtons() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getButtons'");
     }
 }
