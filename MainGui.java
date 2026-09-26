@@ -32,7 +32,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ip.addKeyListener(this);
         re.addMouseListener(this);
         st.addMouseListener(this);
-
+        ht.addMouseListener(this);
     }
 
     public void Initial() {
@@ -258,7 +258,9 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         if (e.getSource() == re) {
             ip.setText("");
         }
-
+        if (e.getSource() == ht){
+            HowtoPlay();
+        }
     }
 
     @Override
