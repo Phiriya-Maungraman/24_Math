@@ -1,4 +1,4 @@
-public class ReicveNum extends MainGui{
+public class ReicveNum {
 
 
 }
