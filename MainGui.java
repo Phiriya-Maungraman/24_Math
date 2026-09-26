@@ -255,18 +255,39 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
             }
             return currCount < maxAllowed;
     }
-        
-
-
-
     
+
+        //reset ค่า
+        public void resetGame() {
+        //ล้างช่องกรอกข้อความ
+        ip.setText("");
+
+        //หยุดเวลาถอยหลังทั้งหมด
+        if (midTimer != null) midTimer.stop();
+        if (mainTimer != null) mainTimer.stop();
+
+        //รีเซ็ตข้อความเวลาถอยหลังบนหน้าจอ
+        mid.setText("00:30");
+        mt.setText("05:00");
+
+        //คืนค่าตัวเลขสุ่มบนปุ่มทั้ง 4 ให้กลับเป็น "0"
+        N1.setText("0");
+        N2.setText("0");
+        N3.setText("0");
+        N4.setText("0");
+
+        //รีเซ็ตคะแนนเป็น 0
+        scr_num.setText("0");
+
+        // รีเซ็ตสถานะการสุ่มครั้งแรก
+        isFirstRandom = true;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ip) {
         String inputText = ip.getText();
-
-        System.out.println("ข้อความที่พิมพ์: " + inputText);
     }
 }
 
@@ -301,7 +322,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == re) {
-            ip.setText("");
+            resetGame();
         }
         if (e.getSource() == ht){
             HowtoPlay();
