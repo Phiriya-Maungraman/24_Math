@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class MainGui extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
-    JButton N1, N2, N3, N4, re, ra, st, ht;
+    JButton N1, N2, N3, N4, re, ra, st, ht, ldr;
     JTextField ip;
     JLabel eq, sum, mid, scr, scr_num, mt, htp;
     RandomNumber randomizer;
@@ -24,6 +24,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         MidTimer();
         MainTimer();
         ShowScore();
+        RankingBoard();
         Finally();
         event();
     }
@@ -148,6 +149,10 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         st.setFocusable(false);
         cp.add(st);
     }
+    
+    public void SettingScreen(){
+        //หน้าต่างตั้งค่า
+    }
 
     public void HowtoButton() {
         ht = new JButton("#How2Play");
@@ -215,6 +220,23 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         scr_num.setFont(new Font("", Font.PLAIN, 40));
         cp.add(scr);
         cp.add(scr_num);
+    }
+
+    public void RankingBoard(){
+        ImageIcon ldric = new ImageIcon("./Icon/PointIcon.png");
+        ldr = new JButton("Ranking",ldric);
+        ldr.setBounds(120, 10, 50, 30);
+        ldr.setSize(125, 30);
+        ldr.setFont(new Font("", Font.BOLD, 15));
+        ldr.setFocusable(false);
+        ldr.setBackground(Color.WHITE);
+        ldr.setHorizontalTextPosition(JButton.RIGHT);
+        ldr.setVerticalTextPosition(JButton.CENTER);
+        cp.add(ldr);
+    }
+
+    public void RnkScreen(){
+        //หน้าต่างอันดับและคะแนน
     }
 
     public void Finally() {
