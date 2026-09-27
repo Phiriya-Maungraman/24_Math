@@ -1,15 +1,18 @@
+import lib.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class MainGui extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
-    JButton N1, N2, N3, N4, N5, re, ra, st, ht, ldr;
+    JButton N1, N2, N3, N4, re, ra, st, ht, ldr;
     JTextField ip;
     JLabel eq, sum, mid, scr, scr_num, mt, htp;
     RandomNumber randomizer;
     boolean isFirstRandom = true;
+    boolean hasRandomized = false;
     CountdownTimer midTimer, mainTimer;
+
 
     public MainGui() {
         Initial();
@@ -30,10 +33,16 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void event() {
+        ip.addActionListener(this);
         ip.addKeyListener(this);
         re.addMouseListener(this);
         st.addMouseListener(this);
         ht.addMouseListener(this);
+
+        N1.addActionListener(this);
+        N2.addActionListener(this);
+        N3.addActionListener(this);
+        N4.addActionListener(this);
     }
 
     public void Initial() {
@@ -42,7 +51,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void RandomNumber() {
-        N1 = new JButton("0"); 
+        N1 = new JButton("0");
         N1.setBounds(100, 80, 50, 25);
         N1.setSize(100, 100);
         N1.setFont(new Font("", Font.PLAIN, 100));
@@ -87,10 +96,14 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ra.setFocusable(false);
         cp.add(ra);
 
+        ra.addActionListener(e ->ip.setText(""));
+
         // ตั้งค่าการทำงานเมื่อคลิกปุ่ม Random
         ra.addActionListener(e -> {
             randomizer.randomizeAll(); // สุ่มเลขตามปกติ
             midTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
+
+            hasRandomized = true;
 
             // เช็คว่าเป็นกดสุ่มครั้งแรกของเกมหรือไม่
             if (isFirstRandom) {
@@ -115,31 +128,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         cp.add(re);
     }
 
-    public void resetGame() {
-        //ล้างช่องกรอกข้อความ
-        ip.setText("");
-
-        //หยุดเวลาถอยหลังทั้งหมด
-        if (midTimer != null) midTimer.stop();
-        if (mainTimer != null) mainTimer.stop();
-
-        //รีเซ็ตข้อความเวลาถอยหลังบนหน้าจอ
-        mid.setText("00:30");
-        mt.setText("05:00");
-
-        //คืนค่าตัวเลขสุ่มบนปุ่มทั้ง 4 ให้กลับเป็น "0"
-        N1.setText("0");
-        N2.setText("0");
-        N3.setText("0");
-        N4.setText("0");
-
-        //รีเซ็ตคะแนนเป็น 0
-        scr_num.setText("0");
-
-        // รีเซ็ตสถานะการสุ่มครั้งแรก
-        isFirstRandom = true;
-    }
-
     public void InputNum() {
         ip = new JTextField();
         ip.setBounds(30, 400, 50, 25);
@@ -155,7 +143,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         eq.setBounds(650, 400, 50, 25);
         eq.setSize(630, 100);
         eq.setFont(new Font("", Font.PLAIN, 70));
-        sum = new JLabel("24");
+        sum = new JLabel("?");
         sum.setBounds(725, 400, 50, 25);
         sum.setSize(630, 100);
         sum.setFont(new Font("", Font.PLAIN, 70));
@@ -173,10 +161,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         st.setHorizontalAlignment(JButton.LEFT);
         st.setFocusable(false);
         cp.add(st);
-    }
-    
-    public void SettingScreen(){
-        //หน้าต่างตั้งค่า
     }
 
     public void HowtoButton() {
@@ -229,7 +213,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setBackground(Color.WHITE);
         cp.add(mt);
 
-        mainTimer = new CountdownTimer(5 * 60, mt);
+        mainTimer = new CountdownTimer(5 * 60, mt,() -> {resetGame();});
+        
 
         mt.setFocusable(false);
     }
@@ -260,10 +245,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         cp.add(ldr);
     }
 
-    public void RnkScreen(){
-        //หน้าต่างอันดับและคะแนน
-    }
-
     public void Finally() {
         this.setTitle("24Math");
         this.setSize(850, 750);
@@ -273,22 +254,65 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         this.setIconImage(logo.getImage());
         this.setVisible(true);
     }
+    
+     //reset ค่า
+        public void resetGame() {
+        //ล้างช่องกรอกข้อความ
+        ip.setText("");
+
+        //หยุดเวลาถอยหลังทั้งหมด
+        if (midTimer != null) midTimer.stop();
+        if (mainTimer != null) mainTimer.stop();
+
+        //รีเซ็ตข้อความเวลาถอยหลังบนหน้าจอ
+        mid.setText("00:30");
+        mt.setText("05:00");
+
+        //คืนค่าตัวเลขสุ่มบนปุ่มทั้ง 4 ให้กลับเป็น "0"
+        N1.setText("0");
+        N2.setText("0");
+        N3.setText("0");
+        N4.setText("0");
+
+        //รีเซ็ตคะแนนเป็น 0
+        scr_num.setText("0");
+
+        // รีเซ็ตสถานะการสุ่มครั้งแรก
+        isFirstRandom = true;
+        hasRandomized = false;
+    }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if (e.getSource() == ip) {
+            
     }
+        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
+        else if(e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4){
+            if (!hasRandomized) {
+                return;
+            }
+            JButton sourceButton = (JButton) e.getSource();
+            String btnText = sourceButton.getText();
+            ip.setText(ip.getText()+btnText);
+        }
+}
 
     @Override
     public void keyTyped(KeyEvent e) {
         if (e.getSource() == ip) {
             char c = e.getKeyChar();
-            if (!Character.isDigit(c) && c != '+' && c != '*' && c != '/' && c != '-') {
+
+            if(!Character.isDigit(c)){
+                    e.consume();   
+                }
+            else if (!Character.isAlphabetic(c)){
                 e.consume();
             }
-        }
+            }
     }
+   
 
     @Override
     public void keyPressed(KeyEvent e) {
