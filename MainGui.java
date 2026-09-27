@@ -28,7 +28,9 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         MainTimer();
         ShowScore();
         RankingBoard();
+        setupDynamicLayout();
         Finally();
+        
         event();
     }
 
@@ -51,30 +53,23 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void RandomNumber() {
+        
         N1 = new JButton("0");
-        N1.setBounds(100, 80, 50, 25);
-        N1.setSize(100, 100);
         N1.setFont(new Font("", Font.PLAIN, 100));
         N1.setBackground(Color.WHITE);
         N1.setFocusable(false);
 
         N2 = new JButton("0");
-        N2.setBounds(250, 80, 50, 25);
-        N2.setSize(100, 100);
         N2.setFont(new Font("", Font.PLAIN, 100));
         N2.setBackground(Color.WHITE);
         N2.setFocusable(false);
 
         N3 = new JButton("0");
-        N3.setBounds(400, 80, 50, 25);
-        N3.setSize(100, 100);
         N3.setFont(new Font("", Font.PLAIN, 100));
         N3.setBackground(Color.WHITE);
         N3.setFocusable(false);
 
         N4 = new JButton("0");
-        N4.setBounds(550, 80, 50, 25);
-        N4.setSize(100, 100);
         N4.setFont(new Font("", Font.PLAIN, 100));
         N4.setBackground(Color.WHITE);
         N4.setFocusable(false);
@@ -87,12 +82,10 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     public void RandomButton() {
         ImageIcon raic = new ImageIcon("./Icon/RandomIcon.png");
         ra = new JButton("Random", raic);
-        ra.setBounds(200, 220, 50, 25);
-        ra.setSize(350, 100);
-        ra.setFont(new Font("", Font.PLAIN, 50));
+        ra.setFont(new Font("", Font.PLAIN,18));
         ra.setHorizontalTextPosition(JButton.RIGHT);
         ra.setVerticalTextPosition(JButton.CENTER);
-        ra.setIconTextGap(20);
+        ra.setIconTextGap(10);
         ra.setFocusable(false);
         cp.add(ra);
 
@@ -116,11 +109,9 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void ResetButton() {
         ImageIcon reic = new ImageIcon("./Icon/ResetIcon.png");
-        re = new JButton("Reset", reic);
-        re.setBounds(30, 250, 50, 25);
-        re.setSize(150, 50);
-        re.setFont(new Font("", Font.PLAIN, 20));
-        re.setBackground(Color.WHITE);
+        re = new JButton(reic);
+       // re.setFont(new Font("", Font.PLAIN, 20));
+        //re.setBackground(Color.GREEN);
         re.setHorizontalTextPosition(JButton.RIGHT);
         re.setVerticalTextPosition(JButton.CENTER);
         re.setIconTextGap(20);
@@ -130,7 +121,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void InputNum() {
         ip = new JTextField();
-        ip.setBounds(30, 400, 50, 25);
         ip.setSize(600, 100);
         ip.setFont(new Font("", Font.BOLD, 50));
         ip.setHorizontalAlignment(JTextField.CENTER);
@@ -140,11 +130,9 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void Sum() {
         eq = new JLabel("=");
-        eq.setBounds(650, 400, 50, 25);
-        eq.setSize(630, 100);
+        //eq.setSize(630, 100);
         eq.setFont(new Font("", Font.PLAIN, 70));
-        sum = new JLabel("?");
-        sum.setBounds(725, 400, 50, 25);
+        sum = new JLabel("???");
         sum.setSize(630, 100);
         sum.setFont(new Font("", Font.PLAIN, 70));
         cp.add(eq);
@@ -153,11 +141,11 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void SettingButton() {
         ImageIcon setic = new ImageIcon("./Icon/SettingIcon.png");
-        st = new JButton("Setting", setic);
-        st.setBounds(700, 10, 50, 30);
-        st.setSize(125, 30);
-        st.setFont(new Font("", Font.BOLD, 17));
-        st.setBackground(Color.WHITE);
+        st = new JButton(setic);
+        // st.setBounds(700, 10, 50, 30);
+        // st.setSize(125, 30);
+        //st.setFont(new Font("", Font.BOLD, 17));
+        //st.setBackground(Color.WHITE);
         st.setHorizontalAlignment(JButton.LEFT);
         st.setFocusable(false);
         cp.add(st);
@@ -165,9 +153,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void HowtoButton() {
         ht = new JButton("#How2Play");
-        ht.setBounds(550, 10, 50, 30);
-        ht.setSize(125, 30);
-        ht.setFont(new Font("", Font.BOLD, 17));
+        ht.setFont(new Font("", Font.BOLD, 14));
         ht.setBackground(Color.WHITE);
         ht.setFocusable(false);
         cp.add(ht);
@@ -178,8 +164,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         JFrame how = new JFrame();
         ImageIcon htscreen = new ImageIcon("./Icon/HowToPlay.png");
         htp = new JLabel(htscreen);
-        htp.setBounds(-5, -290, 1000, 1000);
-        htp.setSize(1000, 1000);
         how.add(htp);
         how.setTitle("#How2Play");
         how.setSize(1000, 500);
@@ -214,20 +198,15 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         cp.add(mt);
 
         mainTimer = new CountdownTimer(5 * 60, mt,() -> {resetGame();});
-        
-
         mt.setFocusable(false);
     }
 
     public void ShowScore() {
         scr = new JLabel("Score:");
-        scr.setBounds(600, 250, 50, 25);
-        scr.setSize(150, 50);
         scr.setFont(new Font("", Font.PLAIN, 35));
         scr_num = new JLabel("0");
-        scr_num.setBounds(720, 250, 50, 25);
-        scr_num.setSize(150, 50);
         scr_num.setFont(new Font("", Font.PLAIN, 40));
+
         cp.add(scr);
         cp.add(scr_num);
     }
@@ -235,9 +214,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     public void RankingBoard(){
         ImageIcon ldric = new ImageIcon("./Icon/PointIcon.png");
         ldr = new JButton("Ranking",ldric);
-        ldr.setBounds(120, 10, 50, 30);
-        ldr.setSize(125, 30);
-        ldr.setFont(new Font("", Font.BOLD, 15));
+        ldr.setFont(new Font("", Font.BOLD, 14));
         ldr.setFocusable(false);
         ldr.setBackground(Color.WHITE);
         ldr.setHorizontalTextPosition(JButton.RIGHT);
@@ -247,14 +224,75 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void Finally() {
         this.setTitle("24Math");
-        this.setSize(850, 750);
+        this.setSize(850, 770);
+        this.setMinimumSize(new Dimension(850, 750));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
         this.setIconImage(logo.getImage());
         this.setVisible(true);
     }
-    
+   
+    public void setupDynamicLayout() {
+    // ดักฟังเหตุการณ์เมื่อหน้าต่างมีการเปลี่ยนแปลงขนาด (Resize)
+    this.addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+            int panelWidth = cp.getWidth();   // ความกว้างหน้าจอปัจจุบัน
+            int panelHeight = cp.getHeight(); // ความสูงหน้าจอปัจจุบัน
+
+            // 1. สูตรจัดวางปุ่มตัวเลขทั้ง 4 (N1 - N4) ให้อยู่ตรงกลางหน้าจอแนวนอนและกระจายช่องไฟเท่าๆ กัน
+            int btnWidth = 100;
+            int btnHeight = 100;
+            int totalButtonsWidth = (btnWidth * 4) + (3 * 20); // ขนาดปุ่ม 4 ปุ่ม + ระยะห่าง 20px จำนวน 3 ช่วง
+            int startX = (panelWidth - totalButtonsWidth) / 2; // สูตรหากึ่งกลางหน้าจอ
+            int fixedY = (int) (panelHeight * 0.15);          // อยู่ที่ 15% จากขอบบน
+
+            N1.setBounds(startX, fixedY, btnWidth, btnHeight);
+            N2.setBounds(startX + btnWidth + 20, fixedY, btnWidth, btnHeight);
+            N3.setBounds(startX + (btnWidth * 2) + 40, fixedY, btnWidth, btnHeight);
+            N4.setBounds(startX + (btnWidth * 3) + 60, fixedY, btnWidth, btnHeight);
+
+            // 2. สูตรปุ่ม Random ให้อยู่ตรงกลางด้านล่างของกลุ่มปุ่มตัวเลข
+            int raWidth = 200;
+            int raHeight = 50;
+            int raX = (panelWidth - raWidth) / 2;
+            int raY = fixedY + btnHeight + 30; // อยู่ใต้ปุ่มตัวเลขลงมา 30 พิกเซล
+            ra.setBounds(raX, raY, raWidth, raHeight);
+
+            // 3. สูตรช่องกรอกข้อความ (TextField: ip) อยู่ตรงกลางหน้าจอ
+            int ipWidth = (int) (panelWidth * 0.5); // กว้าง 50% ของหน้าจอ
+            int ipHeight = 100;
+            int ipX = (panelWidth - ipWidth) / 2;
+            int ipY = (int) (panelHeight * 0.55);   // อยู่ที่ 55% จากขอบบน
+            ip.setBounds(ipX, ipY, ipWidth, ipHeight);
+
+            // 4. สูตรเครื่องหมายเท่ากับ (=) และผลลัพธ์ (sum) อยู่ถัดจากช่องกรอกข้อความ
+            int eqX = ipX + ipWidth + 20;
+            int eqY = ipY;
+            eq.setBounds(eqX, eqY, 60, ipHeight);
+
+            int sumX = eqX + 85;
+            int sumY = ipY;
+            sum.setBounds(sumX, sumY, 100, ipHeight);
+
+            // 5. สูตรปุ่ม Reset อยู่มุมซ้ายล่างของโซนกรอกข้อมูล
+            re.setBounds(raX-80, raY, 50, 50);
+
+            // 6. สูตรคะแนน (Score) อยู่ขวาบนหรือขวาของจอ
+            scr.setBounds(panelWidth - 230, raY, 120, 50);
+            scr_num.setBounds(panelWidth - 110, raY, 100, 50);
+
+            // 7. สูตรปุ่ม Setting อยู่มุมขวาบนของหน้าจอ
+            st.setBounds(panelWidth - 50, 10, 40, 35);
+            // 8. สูตรปุ่ม How2Play อยู่ซ้ายของปุ่ม Setting
+            ht.setBounds(panelWidth - 175, 10, 125, 30);            
+            // 9.  ตัวจับเวลา 00:30 (mid) อยู่ตรงกลางด้านบนของหน้าจอ
+            mid.setBounds((panelWidth / 2) - 100, 10, 200, 60);
+        }
+    });
+}
+
      //reset ค่า
         public void resetGame() {
         //ล้างช่องกรอกข้อความ
