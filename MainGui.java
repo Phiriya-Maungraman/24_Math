@@ -1,14 +1,16 @@
+import lib.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class MainGui extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
-    JButton N1, N2, N3, N4, re, ra, st, ht;
+    JButton N1, N2, N3, N4, re, ra, st, ht, ldr;
     JTextField ip;
     JLabel eq, sum, mid, scr, scr_num, mt, htp;
     RandomNumber randomizer;
     boolean isFirstRandom = true;
+    boolean hasRandomized = false;
     CountdownTimer midTimer, mainTimer;
 
 
@@ -25,6 +27,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         MidTimer();
         MainTimer();
         ShowScore();
+        RankingBoard();
         Finally();
         event();
     }
@@ -35,6 +38,11 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         re.addMouseListener(this);
         st.addMouseListener(this);
         ht.addMouseListener(this);
+
+        N1.addActionListener(this);
+        N2.addActionListener(this);
+        N3.addActionListener(this);
+        N4.addActionListener(this);
     }
 
     public void Initial() {
@@ -88,10 +96,14 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ra.setFocusable(false);
         cp.add(ra);
 
+        ra.addActionListener(e ->ip.setText(""));
+
         // ตั้งค่าการทำงานเมื่อคลิกปุ่ม Random
         ra.addActionListener(e -> {
             randomizer.randomizeAll(); // สุ่มเลขตามปกติ
             midTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
+
+            hasRandomized = true;
 
             // เช็คว่าเป็นกดสุ่มครั้งแรกของเกมหรือไม่
             if (isFirstRandom) {
@@ -131,7 +143,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         eq.setBounds(650, 400, 50, 25);
         eq.setSize(630, 100);
         eq.setFont(new Font("", Font.PLAIN, 70));
-        sum = new JLabel("24");
+        sum = new JLabel("?");
         sum.setBounds(725, 400, 50, 25);
         sum.setSize(630, 100);
         sum.setFont(new Font("", Font.PLAIN, 70));
@@ -201,7 +213,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setBackground(Color.WHITE);
         cp.add(mt);
 
-        mainTimer = new CountdownTimer(5 * 60, mt);
+        mainTimer = new CountdownTimer(5 * 60, mt,() -> {resetGame();});
+        
 
         mt.setFocusable(false);
     }
@@ -219,6 +232,19 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         cp.add(scr_num);
     }
 
+    public void RankingBoard(){
+        ImageIcon ldric = new ImageIcon("./Icon/PointIcon.png");
+        ldr = new JButton("Ranking",ldric);
+        ldr.setBounds(120, 10, 50, 30);
+        ldr.setSize(125, 30);
+        ldr.setFont(new Font("", Font.BOLD, 15));
+        ldr.setFocusable(false);
+        ldr.setBackground(Color.WHITE);
+        ldr.setHorizontalTextPosition(JButton.RIGHT);
+        ldr.setVerticalTextPosition(JButton.CENTER);
+        cp.add(ldr);
+    }
+
     public void Finally() {
         this.setTitle("24Math");
         this.setSize(850, 750);
@@ -228,36 +254,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         this.setIconImage(logo.getImage());
         this.setVisible(true);
     }
-    //หาเลขซ้ำ
-    private boolean isDigitAllowed(char r){
-        
-        String[] randomNums = { N1.getText(), N2.getText(), N3.getText(), N4.getText() }; //ดึงเลขจากปุ่ม
-        
-        //นับจำนวนตัวเลข newChar ที่มีอยู่ในสุ่ม
-        int maxAllowed = 0;
-        for(String num : randomNums){
-            if(num.equals(String.valueOf(r))){
-                maxAllowed++;
-            }
-        }
-            //ถ้าไม่มีตัวเลขในปุ่มจะไม่ให้ผ่าน
-            if (maxAllowed == 0) {
-                return false;}
-
-            // นับจำนวนตัวเลข r ที่ถูกพิมพ์ลงในช่อง ip ไปแล้ว
-            String currText = ip.getText();
-            int currCount = 0;
-            for (int i = 0; i < currText.length(); i++) {
-                if (currText.charAt(i) == r){
-                    currCount++;
-                }
-                
-            }
-            return currCount < maxAllowed;
-    }
     
-
-        //reset ค่า
+     //reset ค่า
         public void resetGame() {
         //ล้างช่องกรอกข้อความ
         ip.setText("");
@@ -281,14 +279,24 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
         // รีเซ็ตสถานะการสุ่มครั้งแรก
         isFirstRandom = true;
+        hasRandomized = false;
     }
-
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ip) {
-        String inputText = ip.getText();
+            
     }
+        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
+        else if(e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4){
+            if (!hasRandomized) {
+                return;
+            }
+            JButton sourceButton = (JButton) e.getSource();
+            String btnText = sourceButton.getText();
+            ip.setText(ip.getText()+btnText);
+        }
 }
 
     @Override
@@ -296,18 +304,15 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         if (e.getSource() == ip) {
             char c = e.getKeyChar();
 
-            if(Character.isDigit(c)){
-                if (!isDigitAllowed(c)){
-                    e.consume();
-                    
+            if(!Character.isDigit(c)){
+                    e.consume();   
                 }
-
-            }
-        else if (c != '+' && c != '*' && c != '/' && c != '-' && c != '(' && c != ')') {
+            else if (!Character.isAlphabetic(c)){
                 e.consume();
             }
-        }
+            }
     }
+   
 
     @Override
     public void keyPressed(KeyEvent e) {
