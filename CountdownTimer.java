@@ -5,16 +5,38 @@ import java.util.TimerTask;
 
 public class CountdownTimer {
     private Timer timer = new Timer();
+    private int initialSeconds;
     private int seconds;
     private JLabel targetLabel;
+    private Runnable onTimeUp; // ตัวแปรเก็บชุดคำสั่งที่จะทำเมื่อหมดเวลา
 
-    // รับค่าจำนวนวินาที และ JLabel ที่ต้องการให้แสดงผล
+    public CountdownTimer() {
+        this.initialSeconds = 0;
+        this.seconds = 0;
+        this.targetLabel = null;
+        this.onTimeUp = null;
+    }
     public CountdownTimer(int seconds, JLabel targetLabel) {
+        this.initialSeconds = seconds;
         this.seconds = seconds;
         this.targetLabel = targetLabel;
     }
 
+    // รับค่าจำนวนวินาที และ JLabel ที่ต้องการให้แสดงผล
+    public CountdownTimer(int seconds, JLabel targetLabel, Runnable onTimeUp) {
+        this.initialSeconds = seconds;
+        this.seconds = seconds;
+        this.targetLabel = targetLabel;
+        this.onTimeUp = onTimeUp;
+    }
+
     public void start(int delay, int period) {
+        stop();
+
+        // สร้าง Timer ใหม่ และรีเซตเวลาให้กลับมาเท่ากับค่าเริ่มต้น
+        timer = new Timer();
+        this.seconds = initialSeconds;
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -32,9 +54,21 @@ public class CountdownTimer {
                     });
                     seconds--;
                 } else {
-                    timer.cancel(); // หยุด Timer เมื่อหมดเวลา
+                    stop();
+                    
+                    // เมื่อหมดเวลา (seconds < 0) ให้ทำงานคำสั่งที่ส่งมา (ถ้ามี)
+                    if (onTimeUp != null) {
+                        SwingUtilities.invokeLater(onTimeUp);
+                    }
                 }
             }
         }, delay, period);
+
+    }
+
+    public void stop() {
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 }
