@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 public class MainGui extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
-    JButton N1, N2, N3, N4, re, ra, st, ht, ldr;
+    JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, del, ac, ent;
     JTextField ip;
     JLabel eq, sum, mid, scr, scr_num, mt, htp;
     RandomNumber randomizer;
@@ -21,6 +21,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         RandomButton();
         ResetButton();
         InputNum();
+        Symbols();
         Sum();
         SettingButton();
         HowtoButton();
@@ -138,6 +139,61 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     }
 
+    public void Symbols(){
+        ImageIcon delic = new ImageIcon("./Icon/DeleteIcon.png");
+        ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
+        plus = new JButton("+");
+        minus = new JButton("-");
+        multi = new JButton("*");
+        divide = new JButton("/");
+        del = new JButton(delic);
+        ac = new JButton("AC");
+        ent = new JButton("Enter",entic);
+        plus.setBounds(30, 550, 50, 25);
+        plus.setSize(75, 75);
+        plus.setFont(new Font("", Font.BOLD, 20));
+        plus.setBackground(Color.WHITE);
+        plus.setFocusable(false);
+        cp.add(plus);
+        minus.setBounds(130, 550, 50, 25);
+        minus.setSize(75, 75);
+        minus.setFont(new Font("", Font.BOLD, 50));
+        minus.setBackground(Color.WHITE);
+        minus.setFocusable(false);
+        cp.add(minus);
+        multi.setBounds(230, 550, 50, 25);
+        multi.setSize(75, 75);
+        multi.setFont(new Font("", Font.BOLD, 50));
+        multi.setBackground(Color.WHITE);
+        multi.setFocusable(false);
+        cp.add(multi);
+        divide.setBounds(330, 550, 50, 25);
+        divide.setSize(75, 75);
+        divide.setFont(new Font("", Font.BOLD, 50));
+        divide.setBackground(Color.WHITE);
+        divide.setFocusable(false);
+        cp.add(divide);
+        del.setBounds(430, 550, 50, 25);
+        del.setSize(75, 75);
+        del.setFont(new Font("", Font.BOLD, 50));
+        del.setBackground(Color.WHITE);
+        del.setFocusable(false);
+        cp.add(del);
+        ac.setBounds(530, 550, 50, 25);
+        ac.setSize(75, 75);
+        ac.setFont(new Font("", Font.BOLD, 27));
+        ac.setBackground(Color.WHITE);
+        ac.setFocusable(false);
+        cp.add(ac);
+        ent.setBounds(630, 550, 50, 25);
+        ent.setSize(150, 75);
+        ent.setFont(new Font("", Font.BOLD, 23));
+        ent.setBackground(Color.WHITE);
+        ent.setIconTextGap(10);
+        ent.setFocusable(false);
+        cp.add(ent);
+    }
+
     public void Sum() {
         eq = new JLabel("=");
         eq.setBounds(650, 400, 50, 25);
@@ -175,7 +231,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void HowtoPlay() {
-        JFrame how = new JFrame();
+        JDialog how = new JDialog();
         ImageIcon htscreen = new ImageIcon("./Icon/HowToPlay.png");
         htp = new JLabel(htscreen);
         htp.setBounds(-5, -290, 1000, 1000);
