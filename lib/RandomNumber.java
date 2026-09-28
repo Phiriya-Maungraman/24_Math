@@ -5,7 +5,7 @@ import javax.swing.JButton;
 
 public class RandomNumber {
     private  JButton[] buttons;
-    Supplier<Integer> randomDigit = () -> (int)(Math.random() * 10);
+    Supplier<Integer> randomDigit = () -> (int)(Math.random() * 9)+1 ;
 
     public RandomNumber(JButton[] buttons) {
         this.buttons = buttons;
