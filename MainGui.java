@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 public class MainGui extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
-    JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, del, ac, ent;
+    JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;
     JTextField ip;
     JPanel gamePanel;
     JLabel eq, sum, mid, scr, scr_num, mt, htp;
@@ -144,14 +144,13 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void Symbols(){
-        ImageIcon delic = new ImageIcon("./Icon/DeleteIcon.png");
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         plus = new JButton("+");
         minus = new JButton("-");
         multi = new JButton("*");
         divide = new JButton("/");
-        del = new JButton(delic);
-        ac = new JButton("AC");
+        op = new JButton("(");
+        cl = new JButton(")");
         ent = new JButton("Enter",entic);
         plus.setBounds(30, 550, 50, 25);
         plus.setSize(75, 75);
@@ -177,18 +176,18 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         divide.setBackground(Color.WHITE);
         divide.setFocusable(false);
         gamePanel.add(divide);
-        del.setBounds(430, 550, 50, 25);
-        del.setSize(75, 75);
-        del.setFont(new Font("", Font.BOLD, 50));
-        del.setBackground(Color.WHITE);
-        del.setFocusable(false);
-        gamePanel.add(del);
-        ac.setBounds(530, 550, 50, 25);
-        ac.setSize(75, 75);
-        ac.setFont(new Font("", Font.BOLD, 27));
-        ac.setBackground(Color.WHITE);
-        ac.setFocusable(false);
-        gamePanel.add(ac);
+        op.setBounds(430, 550, 50, 25);
+        op.setSize(75, 75);
+        op.setFont(new Font("", Font.BOLD, 40));
+        op.setBackground(Color.WHITE);
+        op.setFocusable(false);
+        gamePanel.add(op);
+        cl.setBounds(530, 550, 50, 25);
+        cl.setSize(75, 75);
+        cl.setFont(new Font("", Font.BOLD, 40));
+        cl.setBackground(Color.WHITE);
+        cl.setFocusable(false);
+        gamePanel.add(cl);
         ent.setBounds(630, 550, 50, 25);
         ent.setSize(150, 75);
         ent.setFont(new Font("", Font.BOLD, 23));
