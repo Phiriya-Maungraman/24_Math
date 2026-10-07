@@ -65,6 +65,7 @@ public class LoginForm extends JFrame implements MouseListener{
     public void mouseClicked(MouseEvent e) {
        if(e.getSource() == lg){
         openGamepanel();
+        this.dispose();
        }
     }
 
