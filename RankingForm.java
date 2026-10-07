@@ -4,7 +4,8 @@ import java.awt.*;
 public class RankingForm extends JDialog{
     Container cp;
     JLabel No, Name, Scr, First, FN, FS, Second, SCN, SCS, Third, THN, THS, Fourth, FON, FOS, Fifth, FIN, FIS;
-    public RankingForm(){
+    public RankingForm(JFrame owner){
+        super(owner,"Ranking",true);
         Initial();
         rankingLeader();
         Finally();
@@ -55,12 +56,9 @@ public class RankingForm extends JDialog{
     cp.setLayout(new GridLayout(6,3)); 
 }
     
-
     public void Finally() {
-        this.setTitle("Ranking");
         this.setSize(400, 550);
         this.setLocation(100,150);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setVisible(true);
     }
 }

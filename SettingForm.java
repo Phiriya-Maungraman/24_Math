@@ -4,7 +4,8 @@ import java.awt.*;
 public class SettingForm extends JDialog{
     Container cp;
     JButton four,five,ss,rush;
-    public SettingForm(){
+    public SettingForm(JFrame owner){
+        super(owner,"Setting",true);
         Initial();
         settingMenu();
         Finally();
@@ -38,11 +39,9 @@ public class SettingForm extends JDialog{
     cp.setLayout(null); }
 
     public void Finally() {
-        this.setTitle("Setting");
         this.setSize(400, 550);
         this.setLocation(1400,150);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setVisible(true);
     }
 
 }
