@@ -1,11 +1,10 @@
 package lib;
+
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 
 public class CountdownTimer {
-    private Timer timer = new Timer();
+    private Timer timer;
     private int initialSeconds;
     private int seconds;
     private JLabel targetLabel;
@@ -17,59 +16,50 @@ public class CountdownTimer {
         this.targetLabel = null;
         this.onTimeUp = null;
     }
+
     public CountdownTimer(int seconds, JLabel targetLabel) {
-        this.initialSeconds = seconds;
-        this.seconds = seconds;
-        this.targetLabel = targetLabel;
+        this(seconds, targetLabel, null);
     }
 
-    // รับค่าจำนวนวินาที และ JLabel ที่ต้องการให้แสดงผล
     public CountdownTimer(int seconds, JLabel targetLabel, Runnable onTimeUp) {
         this.initialSeconds = seconds;
         this.seconds = seconds;
         this.targetLabel = targetLabel;
         this.onTimeUp = onTimeUp;
+        this.timer = new Timer(1000, e -> {
+            if (this.seconds > 0) {
+                this.seconds--;
+                updateTimeLabel();
+            } else {
+                stop();
+                if (this.onTimeUp != null) {
+                    this.onTimeUp.run();
+                }
+            }
+        });
+    }
+
+    private void updateTimeLabel() {
+        if (targetLabel != null) {
+            int m = seconds / 60;
+            int s = seconds % 60;
+            targetLabel.setText(String.format("%02d:%02d", m, s));
+        }
     }
 
     public void start(int delay, int period) {
         stop();
-
-        // สร้าง Timer ใหม่ และรีเซตเวลาให้กลับมาเท่ากับค่าเริ่มต้น
-        timer = new Timer();
         this.seconds = initialSeconds;
+        updateTimeLabel(); // อัปเดตแสดงผลทันทีตั้งแต่เริ่ม
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (seconds >= 0) {
-                    // แปลงวินาทีเป็น นาที:วินาที (เช่น 00:30)
-                    int m = seconds / 60;
-                    int s = seconds % 60;
-                    String timeFormatted = String.format("%02d:%02d", m, s);
-
-                    // ทำงานผ่านจุดนี้เพื่อเช็คค่าที่รับมามีค่าไหม
-                    SwingUtilities.invokeLater(() -> {
-                        if (targetLabel != null) {
-                            targetLabel.setText(timeFormatted);
-                        }
-                    });
-                    seconds--;
-                } else {
-                    stop();
-                    
-                    // เมื่อหมดเวลา (seconds < 0) ให้ทำงานคำสั่งที่ส่งมา (ถ้ามี)
-                    if (onTimeUp != null) {
-                        SwingUtilities.invokeLater(onTimeUp);
-                    }
-                }
-            }
-        }, delay, period);
-
+        // สำหรับ Swing Timer ให้กำหนด Initial Delay ได้
+        timer.setInitialDelay(delay);
+        timer.start();
     }
 
     public void stop() {
-        if (timer != null) {
-            timer.cancel();
+        if (timer != null && timer.isRunning()) {
+            timer.stop(); // <--- หยุดทันทีแบบ Real-time ไม่มีดีเลย์
         }
     }
 }
