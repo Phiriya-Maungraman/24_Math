@@ -203,7 +203,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
         sum = new JLabel("?");
         sum.setBounds(725, 400, 630,100);
-        sum.setFont(new Font("", Font.PLAIN, 70));
+        sum.setFont(new Font("", Font.PLAIN, 35));
 
         gamePanel.add(eq);
         gamePanel.add(sum);
@@ -222,7 +222,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     private void openSetting() {
-        SettingForm form = new SettingForm();
+        SettingForm form = new SettingForm(this);
         form.setVisible(true);
     }
 
@@ -239,7 +239,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     /** เปิดหน้าต่างวิธีการเล่น (How2Play) */
     private void openHow2Play() {
-        How2PlayForm form = new How2PlayForm();
+        How2PlayForm form = new How2PlayForm(this);
         form.setVisible(true);
     }
 
@@ -303,7 +303,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     private void openRanking() {
-        RankingForm form = new RankingForm();
+        RankingForm form = new RankingForm(this);
         form.setVisible(true);
     }
 
@@ -408,7 +408,13 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                     midTimer.start(0, 1000);
                 } 
                 catch (Exception ex) {
-                    ;randomizer.randomizeAll();  // สุ่มเลขชุดใหม่
+                    sum.setText("can't process");
+                    JLabel dummyLabel = new JLabel();
+                    CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
+                        sum.setText("?");});
+                        sumResetTimer.start(0, 1000);
+
+                    randomizer.randomizeAll();  // สุ่มเลขชุดใหม่
                     midTimer.start(0, 1000);
                 }
             }
@@ -474,10 +480,14 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                         char lastChar = text.charAt(text.length() - 1);
                         String lastStr = String.valueOf(lastChar);
 
-                        if (lastStr.equals(N1.getText())) N1.setEnabled(true);
-                        else if (lastStr.equals(N2.getText())) N2.setEnabled(true);
-                        else if (lastStr.equals(N3.getText())) N3.setEnabled(true);
-                        else if (lastStr.equals(N4.getText())) N4.setEnabled(true);
+                        JButton[] num = { N1, N2, N3, N4 };
+                        for (JButton btn : num) {
+                            // เช็คเฉพาะปุ่มที่ปิดการใช้งานอยู่ และมีตัวเลขตรงกับตัวที่ถูกลบ
+                            if (!btn.isEnabled() && btn.getText().equals(lastStr)) {
+                                btn.setEnabled(true);
+                                break; // ปลดล็อกแค่ปุ่มเดียวแล้วออกจากลูปทันที
+                            }
+                        }
                     }
                 }
             }
@@ -497,6 +507,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         }
         if (e.getSource() == ht) {
             openHow2Play();
+    
         }
         if (e.getSource() == st) {
             openSetting();
