@@ -16,8 +16,15 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     boolean isFirstRandom = true;
     boolean hasRandomized = false;
     CountdownTimer midTimer, mainTimer;
+    private String currentUser = "Guest";
+    //JLabel userLabel;
 
     public MainGui() {
+        this("Guest");
+    }
+
+    public MainGui(String username) {
+        this.currentUser = username;
         Initial();
         RandomNumber();
         randomizer = new RandomNumber(new JButton[] { N1, N2, N3, N4 });
@@ -33,10 +40,18 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         MainTimer();
         ShowScore();
         RankingBoard();
+        //ShowCurrentUser();
         Finally();
         event();
     }
-
+// public void ShowCurrentUser() {
+//     userLabel = new JLabel("Player: " + currentUser);
+//     userLabel.setBounds(0, 0, 250, 30);
+//     userLabel.setFont(new Font("", Font.BOLD, 18));
+//     userLabel.setForeground(new Color(39, 76, 67));
+//     userLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//     gamePanel.add(userLabel);
+// }
     public void event() {
         ip.addActionListener(this);
         ip.addKeyListener(this);
@@ -63,10 +78,10 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     public void Initial() {
         cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
-        cp.setBackground(new Color(30,42,68));
+        cp.setBackground(new Color(30, 42, 68));
         gamePanel = new JPanel(null);
         gamePanel.setPreferredSize(new Dimension(850, 650));
-        gamePanel.setBackground(new Color(30,42,68));
+        gamePanel.setBackground(new Color(30, 42, 68));
         cp.add(gamePanel);
     }
 
@@ -74,35 +89,39 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         button = new JButton(text);
         button.setFont(new Font("", Font.PLAIN, fontSize));
         button.setBackground(bgColor);
-        button.setForeground(new Color(30,42,68));
+        button.setForeground(new Color(30, 42, 68));
+        button.setFocusable(false);
+        gamePanel.add(button);
+        return button;
+    }
+    
+    /*
+     * public JButton CreateButton2(JButton button, String text, int fontSize, Color
+     * bgColor){
+     * button = new JButton(text);
+     * button.setFont(new Font("", Font.BOLD, fontSize));
+     * button.setBackground(new Color(30,42,68));
+     * button.setBorder(new LineBorder(new Color(60, 74, 106),2));
+     * button.setForeground(bgColor);
+     * button.setFocusable(false);
+     * gamePanel.add(button);
+     * return button;
+     * }
+     */
+
+    public JButton CreateButtonIcon(JButton button, String text, ImageIcon Icon, int fontSize, Color lnColor,
+            Color bgColor) {
+        button = new JButton(text, Icon);
+        button.setFont(new Font("", Font.BOLD, fontSize));
+        button.setBackground(new Color(30, 42, 68));
+        button.setBorder(new LineBorder(lnColor, 2));
+        button.setForeground(bgColor);
         button.setFocusable(false);
         gamePanel.add(button);
         return button;
     }
 
-    /*public JButton CreateButton2(JButton button, String text, int fontSize, Color bgColor){
-        button = new JButton(text);
-        button.setFont(new Font("", Font.BOLD, fontSize));
-        button.setBackground(new Color(30,42,68));
-        button.setBorder(new LineBorder(new Color(60, 74, 106),2));
-        button.setForeground(bgColor);
-        button.setFocusable(false);
-        gamePanel.add(button);
-        return button;
-    }*/
-
-    public JButton CreateButtonIcon(JButton button, String text, ImageIcon Icon, int fontSize, Color lnColor, Color bgColor){
-        button = new JButton(text,Icon);
-        button.setFont(new Font("", Font.BOLD, fontSize));
-        button.setBackground(new Color(30,42,68));
-        button.setBorder(new LineBorder(lnColor,2));
-        button.setForeground(bgColor);
-        button.setFocusable(false);
-        gamePanel.add(button);
-        return button;
-    }
-
-    public JButton CreateButtonSymbols(JButton button, String text, int fontSize, Color bgColor){
+    public JButton CreateButtonSymbols(JButton button, String text, int fontSize, Color bgColor) {
         button = new JButton(text);
         button.setFont(new Font("", Font.BOLD, fontSize));
         button.setBackground(new Color(58, 74, 112));
@@ -112,15 +131,17 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         return button;
     }
 
-     /*ht = new JButton("#How2Play");
-        ht.setBounds(550, 10, 50, 30);
-        ht.setSize(125, 30);
-        ht.setFont(new Font("", Font.BOLD, 17));
-        ht.setForeground(Color.WHITE);
-        ht.setBackground(new Color(30,42,68));
-        ht.setBorder(new LineBorder(new Color(60, 74, 106),2));
-        ht.setFocusable(false);
-        gamePanel.add(ht);*/
+    /*
+     * ht = new JButton("#How2Play");
+     * ht.setBounds(550, 10, 50, 30);
+     * ht.setSize(125, 30);
+     * ht.setFont(new Font("", Font.BOLD, 17));
+     * ht.setForeground(Color.WHITE);
+     * ht.setBackground(new Color(30,42,68));
+     * ht.setBorder(new LineBorder(new Color(60, 74, 106),2));
+     * ht.setFocusable(false);
+     * gamePanel.add(ht);
+     */
 
     public void RandomNumber() {
         N1 = CreateButton(N1, "0", 100, Color.WHITE);
@@ -150,7 +171,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ra.setSize(350, 100);
         ra.setFont(new Font("", Font.PLAIN, 50));
         ra.setBackground(new Color(255, 138, 61));
-        ra.setForeground(new Color(30,42,68));
+        ra.setForeground(new Color(30, 42, 68));
         ra.setHorizontalTextPosition(JButton.RIGHT);
         ra.setVerticalTextPosition(JButton.CENTER);
         ra.setIconTextGap(20);
@@ -179,7 +200,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void ResetButton() {
-        re = CreateButtonIcon(re, "Reset", new ImageIcon("./Icon/ResetIcon.png"), 20,Color.RED, Color.RED);
+        re = CreateButtonIcon(re, "Reset", new ImageIcon("./Icon/ResetIcon.png"), 20, Color.RED, Color.RED);
         re.setBounds(30, 250, 150, 50);
         re.setHorizontalTextPosition(JButton.RIGHT);
         re.setVerticalTextPosition(JButton.CENTER);
@@ -191,7 +212,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ip.setBounds(30, 400, 50, 25);
         ip.setSize(600, 100);
         ip.setFont(new Font("", Font.BOLD, 50));
-        ip.setForeground(new Color(30,42,68));
+        ip.setForeground(new Color(30, 42, 68));
         ip.setHorizontalAlignment(JTextField.CENTER);
         gamePanel.add(ip);
 
@@ -199,7 +220,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void FunctionText() {
         ft = new JLabel("function text");
-        ft.setBounds(275,360,200,25);
+        ft.setBounds(275, 360, 200, 25);
         ft.setFont(new Font("", Font.BOLD, 20));
         gamePanel.add(ft);
     }
@@ -208,24 +229,25 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
-        plus.setBounds(30, 550, 75,75);
+        plus = CreateButton(plus, "+", 50, Color.WHITE);
+        //plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
+        plus.setBounds(30, 550, 75, 75);
 
         minus = CreateButtonSymbols(minus, "-", 50, Color.WHITE);
-        minus.setBounds(130, 550, 75,75);
+        minus.setBounds(130, 550, 75, 75);
 
         multi = CreateButtonSymbols(multi, "*", 50, Color.WHITE);
-        multi.setBounds(230, 550, 75,75);
+        multi.setBounds(230, 550, 75, 75);
 
         divide = CreateButtonSymbols(divide, "/", 50, Color.WHITE);
-        divide.setBounds(330, 550, 75,75);
+        divide.setBounds(330, 550, 75, 75);
 
         op = CreateButtonSymbols(op, "(", 50, Color.WHITE);
-        op.setBounds(430, 550, 75,75);
+        op.setBounds(430, 550, 75, 75);
 
         cl = CreateButtonSymbols(cl, ")", 50, Color.WHITE);
-        cl.setBounds(530, 550, 75,75);
-        
+        cl.setBounds(530, 550, 75, 75);
+
         ent.setBounds(630, 550, 150, 75);
         ent.setFont(new Font("", Font.BOLD, 23));
         ent.setForeground(new Color(15, 61, 42));
@@ -241,17 +263,16 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         gamePanel.add(cl);
         gamePanel.add(ent);
 
-    
     }
 
     public void Sum() {
         eq = new JLabel("=");
-        eq.setBounds(650, 400, 630,100);
+        eq.setBounds(650, 400, 630, 100);
         eq.setFont(new Font("", Font.PLAIN, 70));
         eq.setForeground(Color.WHITE);
 
         sum = new JLabel("?");
-        sum.setBounds(725, 400, 630,100);
+        sum.setBounds(725, 400, 630, 100);
         sum.setFont(new Font("", Font.PLAIN, 50));
         sum.setForeground(new Color(61, 220, 151));
 
@@ -260,17 +281,20 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void SettingButton() {
-        st = CreateButtonIcon(st, "Setting", new ImageIcon("./Icon/SettingIcon.png"), 17,new Color(60, 74, 106), Color.WHITE);
+        st = CreateButtonIcon(st, "Setting", new ImageIcon("./Icon/SettingIcon.png"), 17, new Color(60, 74, 106),
+                Color.WHITE);
         st.setBounds(700, 10, 125, 30);
-        /*ImageIcon setic = new ImageIcon("./Icon/SettingIcon.png");
-        st = new JButton("Setting", setic);
-        st.setBounds(700, 10, 50, 30);
-        st.setSize(125, 30);
-        st.setFont(new Font("", Font.BOLD, 17));
-        st.setBackground(Color.WHITE);
-        st.setHorizontalAlignment(JButton.LEFT);
-        st.setFocusable(false);
-        gamePanel.add(st);*/
+        /*
+         * ImageIcon setic = new ImageIcon("./Icon/SettingIcon.png");
+         * st = new JButton("Setting", setic);
+         * st.setBounds(700, 10, 50, 30);
+         * st.setSize(125, 30);
+         * st.setFont(new Font("", Font.BOLD, 17));
+         * st.setBackground(Color.WHITE);
+         * st.setHorizontalAlignment(JButton.LEFT);
+         * st.setFocusable(false);
+         * gamePanel.add(st);
+         */
     }
 
     private void openSetting() {
@@ -279,7 +303,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void HowtoButton() {
-        ht = CreateButtonIcon(ht, "#How2Play", new ImageIcon(""),17,new Color(60, 74, 106), Color.WHITE);
+        ht = CreateButtonIcon(ht, "#How2Play", new ImageIcon(""), 17, new Color(60, 74, 106), Color.WHITE);
         ht.setBounds(550, 10, 125, 30);
 
     }
@@ -305,7 +329,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
             midTimer.start(0, 1000);
             ip.setText("");
             setNumberButtonsEnabled(true);
-            
+
         });
     }
 
@@ -317,7 +341,21 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(5*60, mt, () -> {
+        mainTimer = new CountdownTimer(  5*60, mt, () -> {
+            midTimer.stop();
+            int finalScore = 0;
+            try {
+                finalScore = Integer.parseInt(scr_num.getText().trim());
+            } catch (NumberFormatException e) {
+                finalScore = 0; 
+            }
+            UserManager.updateScore(currentUser, finalScore);
+            JOptionPane.showMessageDialog(this, 
+            "หมดเวลาการแข่งขัน!\nผู้เล่น: " + currentUser + "\nคะแนนที่ทำได้: " + finalScore, 
+            "Time's Up", 
+            JOptionPane.INFORMATION_MESSAGE);
+            
+            //JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " + finalScore);
             resetGame();
         });
         mt.setFocusable(false);
@@ -339,7 +377,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void RankingBoard() {
-        ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15,new Color(60, 74, 106), Color.WHITE);
+        ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15, new Color(60, 74, 106),
+                Color.WHITE);
         ldr.setBounds(120, 10, 125, 30);
 
     }
@@ -398,11 +437,11 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         }
         if (e.getSource() == ent || e.getSource() == ip) {
             boolean isAllNumbersUsed = !N1.isEnabled() && !N2.isEnabled() && !N3.isEnabled() && !N4.isEnabled();
-            
+
             if (!isAllNumbersUsed) {
                 return; // ออกจากการทำงานทันที ไม่คำนวณผลลัพธ์
             }
-            
+
             String input = ip.getText().trim();
             JButton[] numButtons = { N1, N2, N3, N4 };
             boolean adjacentNumbers = false;
@@ -419,7 +458,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                         break;
                     }
                 }
-                if (adjacentNumbers) break;
+                if (adjacentNumbers)
+                    break;
             }
 
             // ถ้ามีตัวเลขอยู่ติดกันจะไม่ส่งคำตอบ
@@ -448,31 +488,29 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
                     randomizer.randomizeAll();
                     midTimer.start(0, 1000);
-                } 
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     sum.setText("can't process");
-                    sum.setBounds(700, 400, 630,100);
+                    sum.setBounds(700, 400, 630, 100);
                     sum.setFont(new Font("", Font.PLAIN, 20));
                     JLabel dummyLabel = new JLabel();
                     CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
                         sum.setText("?");
-                        sum.setBounds(725, 400, 630,100);
-                        sum.setFont(new Font("", Font.PLAIN, 50));});
-                        sumResetTimer.start(0, 1000);
+                        sum.setBounds(725, 400, 630, 100);
+                        sum.setFont(new Font("", Font.PLAIN, 50));
+                    });
+                    sumResetTimer.start(0, 1000);
 
-                    randomizer.randomizeAll();  // สุ่มเลขชุดใหม่
+                    randomizer.randomizeAll(); // สุ่มเลขชุดใหม่
                     midTimer.start(0, 1000);
                 }
             }
             ip.setText("");
             setNumberButtonsEnabled(true);
- 
-            
+
         }
 
         // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
         else if (e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4) {
-
 
             JButton sourceButton = (JButton) e.getSource();
             String btnText = sourceButton.getText();
@@ -482,7 +520,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
             sourceButton.setEnabled(false);
         } else if (e.getSource() == plus || e.getSource() == minus || e.getSource() == multi ||
                 e.getSource() == divide || e.getSource() == plus || e.getSource() == op || e.getSource() == cl) {
-                
 
             JButton sourceButton = (JButton) e.getSource();
             String btnText = sourceButton.getText();
@@ -516,11 +553,15 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                     // คลุมดำข้อความบางส่วนไว้เพื่อลบ
                     if (ip.getSelectedText() != null) {
                         String selected = ip.getSelectedText();
-                        if (selected.contains(N1.getText())) N1.setEnabled(true);
-                        if (selected.contains(N2.getText())) N2.setEnabled(true);
-                        if (selected.contains(N3.getText())) N3.setEnabled(true);
-                        if (selected.contains(N4.getText())) N4.setEnabled(true);
-                    } 
+                        if (selected.contains(N1.getText()))
+                            N1.setEnabled(true);
+                        if (selected.contains(N2.getText()))
+                            N2.setEnabled(true);
+                        if (selected.contains(N3.getText()))
+                            N3.setEnabled(true);
+                        if (selected.contains(N4.getText()))
+                            N4.setEnabled(true);
+                    }
                     // ลบถอยหลังทีละตัว
                     else {
                         char lastChar = text.charAt(text.length() - 1);
@@ -553,7 +594,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         }
         if (e.getSource() == ht) {
             openHow2Play();
-    
+
         }
         if (e.getSource() == st) {
             openSetting();
