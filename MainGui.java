@@ -1,6 +1,8 @@
 import lib.*;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -61,8 +63,10 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     public void Initial() {
         cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
+        cp.setBackground(new Color(30,42,68));
         gamePanel = new JPanel(null);
         gamePanel.setPreferredSize(new Dimension(850, 650));
+        gamePanel.setBackground(new Color(30,42,68));
         cp.add(gamePanel);
     }
 
@@ -70,10 +74,53 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         button = new JButton(text);
         button.setFont(new Font("", Font.PLAIN, fontSize));
         button.setBackground(bgColor);
+        button.setForeground(new Color(30,42,68));
         button.setFocusable(false);
         gamePanel.add(button);
         return button;
     }
+
+    /*public JButton CreateButton2(JButton button, String text, int fontSize, Color bgColor){
+        button = new JButton(text);
+        button.setFont(new Font("", Font.BOLD, fontSize));
+        button.setBackground(new Color(30,42,68));
+        button.setBorder(new LineBorder(new Color(60, 74, 106),2));
+        button.setForeground(bgColor);
+        button.setFocusable(false);
+        gamePanel.add(button);
+        return button;
+    }*/
+
+    public JButton CreateButtonIcon(JButton button, String text, ImageIcon Icon, int fontSize, Color lnColor, Color bgColor){
+        button = new JButton(text,Icon);
+        button.setFont(new Font("", Font.BOLD, fontSize));
+        button.setBackground(new Color(30,42,68));
+        button.setBorder(new LineBorder(lnColor,2));
+        button.setForeground(bgColor);
+        button.setFocusable(false);
+        gamePanel.add(button);
+        return button;
+    }
+
+    public JButton CreateButtonSymbols(JButton button, String text, int fontSize, Color bgColor){
+        button = new JButton(text);
+        button.setFont(new Font("", Font.BOLD, fontSize));
+        button.setBackground(new Color(58, 74, 112));
+        button.setForeground(bgColor);
+        button.setFocusable(false);
+        gamePanel.add(button);
+        return button;
+    }
+
+     /*ht = new JButton("#How2Play");
+        ht.setBounds(550, 10, 50, 30);
+        ht.setSize(125, 30);
+        ht.setFont(new Font("", Font.BOLD, 17));
+        ht.setForeground(Color.WHITE);
+        ht.setBackground(new Color(30,42,68));
+        ht.setBorder(new LineBorder(new Color(60, 74, 106),2));
+        ht.setFocusable(false);
+        gamePanel.add(ht);*/
 
     public void RandomNumber() {
         N1 = CreateButton(N1, "0", 100, Color.WHITE);
@@ -102,6 +149,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ra.setBounds(200, 220, 50, 25);
         ra.setSize(350, 100);
         ra.setFont(new Font("", Font.PLAIN, 50));
+        ra.setBackground(new Color(255, 138, 61));
+        ra.setForeground(new Color(30,42,68));
         ra.setHorizontalTextPosition(JButton.RIGHT);
         ra.setVerticalTextPosition(JButton.CENTER);
         ra.setIconTextGap(20);
@@ -130,17 +179,11 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void ResetButton() {
-        ImageIcon reic = new ImageIcon("./Icon/ResetIcon.png");
-        re = new JButton("Reset", reic);
-        re.setBounds(30, 250, 50, 25);
-        re.setSize(150, 50);
-        re.setFont(new Font("", Font.PLAIN, 20));
-        re.setBackground(Color.WHITE);
+        re = CreateButtonIcon(re, "Reset", new ImageIcon("./Icon/ResetIcon.png"), 20,Color.RED, Color.RED);
+        re.setBounds(30, 250, 150, 50);
         re.setHorizontalTextPosition(JButton.RIGHT);
         re.setVerticalTextPosition(JButton.CENTER);
-        re.setIconTextGap(20);
-        re.setFocusable(false);
-        gamePanel.add(re);
+        re.setIconTextGap(10);
     }
 
     public void InputNum() {
@@ -148,6 +191,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ip.setBounds(30, 400, 50, 25);
         ip.setSize(600, 100);
         ip.setFont(new Font("", Font.BOLD, 50));
+        ip.setForeground(new Color(30,42,68));
         ip.setHorizontalAlignment(JTextField.CENTER);
         gamePanel.add(ip);
 
@@ -162,34 +206,30 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void Symbols() {
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
-        minus = new JButton("-");
-        multi = new JButton("*");
-        divide = new JButton("/");
-        op = new JButton("(");
-        cl = new JButton(")");
         ent = new JButton("Enter", entic);
 
-        plus = CreateButton(plus, "+", 50, Color.WHITE);
+        plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75,75);
 
-        minus = CreateButton(minus, "-", 50, Color.WHITE);
+        minus = CreateButtonSymbols(minus, "-", 50, Color.WHITE);
         minus.setBounds(130, 550, 75,75);
 
-        multi = CreateButton(multi, "*", 50, Color.WHITE);
+        multi = CreateButtonSymbols(multi, "*", 50, Color.WHITE);
         multi.setBounds(230, 550, 75,75);
 
-        divide = CreateButton(divide, "/", 50, Color.WHITE);
+        divide = CreateButtonSymbols(divide, "/", 50, Color.WHITE);
         divide.setBounds(330, 550, 75,75);
 
-        op = CreateButton(op, "(", 50, Color.WHITE);
+        op = CreateButtonSymbols(op, "(", 50, Color.WHITE);
         op.setBounds(430, 550, 75,75);
 
-        cl = CreateButton(cl, ")", 50, Color.WHITE);
+        cl = CreateButtonSymbols(cl, ")", 50, Color.WHITE);
         cl.setBounds(530, 550, 75,75);
         
         ent.setBounds(630, 550, 150, 75);
         ent.setFont(new Font("", Font.BOLD, 23));
-        ent.setBackground(Color.WHITE);
+        ent.setForeground(new Color(15, 61, 42));
+        ent.setBackground(new Color(61, 220, 151));
         ent.setIconTextGap(10);
         ent.setFocusable(false);
 
@@ -208,17 +248,21 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         eq = new JLabel("=");
         eq.setBounds(650, 400, 630,100);
         eq.setFont(new Font("", Font.PLAIN, 70));
+        eq.setForeground(Color.WHITE);
 
         sum = new JLabel("?");
         sum.setBounds(725, 400, 630,100);
-        sum.setFont(new Font("", Font.PLAIN, 35));
+        sum.setFont(new Font("", Font.PLAIN, 50));
+        sum.setForeground(new Color(61, 220, 151));
 
         gamePanel.add(eq);
         gamePanel.add(sum);
     }
 
     public void SettingButton() {
-        ImageIcon setic = new ImageIcon("./Icon/SettingIcon.png");
+        st = CreateButtonIcon(st, "Setting", new ImageIcon("./Icon/SettingIcon.png"), 17,new Color(60, 74, 106), Color.WHITE);
+        st.setBounds(700, 10, 125, 30);
+        /*ImageIcon setic = new ImageIcon("./Icon/SettingIcon.png");
         st = new JButton("Setting", setic);
         st.setBounds(700, 10, 50, 30);
         st.setSize(125, 30);
@@ -226,7 +270,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         st.setBackground(Color.WHITE);
         st.setHorizontalAlignment(JButton.LEFT);
         st.setFocusable(false);
-        gamePanel.add(st);
+        gamePanel.add(st);*/
     }
 
     private void openSetting() {
@@ -235,13 +279,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void HowtoButton() {
-        ht = new JButton("#How2Play");
-        ht.setBounds(550, 10, 50, 30);
-        ht.setSize(125, 30);
-        ht.setFont(new Font("", Font.BOLD, 17));
-        ht.setBackground(Color.WHITE);
-        ht.setFocusable(false);
-        gamePanel.add(ht);
+        ht = CreateButtonIcon(ht, "#How2Play", new ImageIcon(""),17,new Color(60, 74, 106), Color.WHITE);
+        ht.setBounds(550, 10, 125, 30);
 
     }
 
@@ -256,7 +295,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mid.setBounds(300, 5, 50, 30);
         mid.setSize(200, 60);
         mid.setFont(new Font("", Font.PLAIN, 60));
-        mid.setForeground(new Color(225, 0, 0));
+        mid.setForeground(new Color(255, 209, 102));
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
 
@@ -275,7 +314,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setBounds(25, 10, 50, 30);
         mt.setSize(100, 30);
         mt.setFont(new Font("", Font.BOLD, 25));
-        mt.setBackground(Color.WHITE);
+        mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
         mainTimer = new CountdownTimer(5*60, mt, () -> {
@@ -289,25 +328,20 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         scr.setBounds(600, 250, 50, 25);
         scr.setSize(150, 50);
         scr.setFont(new Font("", Font.PLAIN, 35));
+        scr.setForeground(Color.WHITE);
         scr_num = new JLabel("0");
         scr_num.setBounds(720, 250, 50, 25);
         scr_num.setSize(150, 50);
         scr_num.setFont(new Font("", Font.PLAIN, 40));
+        scr_num.setForeground(new Color(255, 209, 102));
         gamePanel.add(scr);
         gamePanel.add(scr_num);
     }
 
     public void RankingBoard() {
-        ImageIcon ldric = new ImageIcon("./Icon/PointIcon.png");
-        ldr = new JButton("Ranking", ldric);
-        ldr.setBounds(120, 10, 50, 30);
-        ldr.setSize(125, 30);
-        ldr.setFont(new Font("", Font.BOLD, 15));
-        ldr.setFocusable(false);
-        ldr.setBackground(Color.WHITE);
-        ldr.setHorizontalTextPosition(JButton.RIGHT);
-        ldr.setVerticalTextPosition(JButton.CENTER);
-        gamePanel.add(ldr);
+        ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15,new Color(60, 74, 106), Color.WHITE);
+        ldr.setBounds(120, 10, 125, 30);
+
     }
 
     private void openRanking() {
@@ -316,7 +350,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     public void Finally() {
-        this.setTitle("24Math");
+        this.setTitle("24Math 4-digit number");
         this.setSize(850, 750);
         this.setLocationRelativeTo(null);
         gamePanel.setPreferredSize(new Dimension(850, 650));
@@ -423,7 +457,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                     CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
                         sum.setText("?");
                         sum.setBounds(725, 400, 630,100);
-                        sum.setFont(new Font("", Font.PLAIN, 35));});
+                        sum.setFont(new Font("", Font.PLAIN, 50));});
                         sumResetTimer.start(0, 1000);
 
                     randomizer.randomizeAll();  // สุ่มเลขชุดใหม่
