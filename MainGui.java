@@ -9,7 +9,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;
     JTextField ip;
     JPanel gamePanel;
-    JLabel eq, sum, mid, scr, scr_num, mt, htp;
+    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft;
     RandomNumber randomizer;
     boolean isFirstRandom = true;
     boolean hasRandomized = false;
@@ -22,6 +22,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         RandomButton();
         ResetButton();
         InputNum();
+        FunctionText();
         Symbols();
         Sum();
         SettingButton();
@@ -152,6 +153,13 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     }
 
+    public void FunctionText() {
+        ft = new JLabel("function text");
+        ft.setBounds(275,360,200,25);
+        ft.setFont(new Font("", Font.BOLD, 20));
+        gamePanel.add(ft);
+    }
+
     public void Symbols() {
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         minus = new JButton("-");
@@ -203,7 +211,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
         sum = new JLabel("?");
         sum.setBounds(725, 400, 630,100);
-        sum.setFont(new Font("", Font.PLAIN, 70));
+        sum.setFont(new Font("", Font.PLAIN, 35));
 
         gamePanel.add(eq);
         gamePanel.add(sum);
@@ -408,7 +416,17 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                     midTimer.start(0, 1000);
                 } 
                 catch (Exception ex) {
-                    ;randomizer.randomizeAll();  // สุ่มเลขชุดใหม่
+                    sum.setText("can't process");
+                    sum.setBounds(700, 400, 630,100);
+                    sum.setFont(new Font("", Font.PLAIN, 20));
+                    JLabel dummyLabel = new JLabel();
+                    CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
+                        sum.setText("?");
+                        sum.setBounds(725, 400, 630,100);
+                        sum.setFont(new Font("", Font.PLAIN, 35));});
+                        sumResetTimer.start(0, 1000);
+
+                    randomizer.randomizeAll();  // สุ่มเลขชุดใหม่
                     midTimer.start(0, 1000);
                 }
             }
@@ -474,10 +492,14 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                         char lastChar = text.charAt(text.length() - 1);
                         String lastStr = String.valueOf(lastChar);
 
-                        if (lastStr.equals(N1.getText())) N1.setEnabled(true);
-                        else if (lastStr.equals(N2.getText())) N2.setEnabled(true);
-                        else if (lastStr.equals(N3.getText())) N3.setEnabled(true);
-                        else if (lastStr.equals(N4.getText())) N4.setEnabled(true);
+                        JButton[] num = { N1, N2, N3, N4 };
+                        for (JButton btn : num) {
+                            // เช็คเฉพาะปุ่มที่ปิดการใช้งานอยู่ และมีตัวเลขตรงกับตัวที่ถูกลบ
+                            if (!btn.isEnabled() && btn.getText().equals(lastStr)) {
+                                btn.setEnabled(true);
+                                break; // ปลดล็อกแค่ปุ่มเดียวแล้วออกจากลูปทันที
+                            }
+                        }
                     }
                 }
             }
