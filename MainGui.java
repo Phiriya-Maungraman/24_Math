@@ -351,8 +351,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
             }
             UserManager.updateScore(currentUser, finalScore);
             JOptionPane.showMessageDialog(this, 
-            "หมดเวลาการแข่งขัน!\nผู้เล่น: " + currentUser + "\nคะแนนที่ทำได้: " + finalScore, 
-            "Time's Up", 
+            "Time Out!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore, 
+            "หมดเวลา", 
             JOptionPane.INFORMATION_MESSAGE);
             
             //JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " + finalScore);
