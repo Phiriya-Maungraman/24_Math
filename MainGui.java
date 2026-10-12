@@ -229,8 +229,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        plus = CreateButton(plus, "+", 50, Color.WHITE);
-        //plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
+        //plus = CreateButton(plus, "+", 50, Color.WHITE);
+        plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
         minus = CreateButtonSymbols(minus, "-", 50, Color.WHITE);
@@ -351,7 +351,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
             }
             UserManager.updateScore(currentUser, finalScore);
             JOptionPane.showMessageDialog(this, 
-            "Time Out!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore, 
+            "Time's Up!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore, 
             "หมดเวลา", 
             JOptionPane.INFORMATION_MESSAGE);
             
@@ -476,7 +476,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num);
+                    ScoreManager.checkScore(result, scr_num,"Four");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();

@@ -7,11 +7,11 @@ public class SettingForm extends JDialog implements MouseListener{
     Container cp;
     JButton four,five,ss,rush,lg;
     JFrame owner;
-    String current;
-    public SettingForm(JFrame owner, String current){
+    String currentMode;
+    public SettingForm(JFrame owner, String currentMode){
         super(owner,"Setting",true);
         this.owner = owner;
-        this.current = current;
+        this.currentMode = currentMode;
         Initial();
         settingMenu();
         Finally();
@@ -47,13 +47,13 @@ public class SettingForm extends JDialog implements MouseListener{
         lg.setBounds(50,450,100,35);
         lg.setSize(300,50);
 
-        if (current.equals("Four")) {
+        if (currentMode.equals("Four")) {
         four.setEnabled(false); }
-        else if (current.equals("Five")) {
+        else if (currentMode.equals("Five")) {
         five.setEnabled(false); }
-        if (current.equals("SS")) {
+        if (currentMode.equals("SS")) {
         ss.setEnabled(false); }
-        if (current.equals("Rush")) {
+        if (currentMode.equals("Rush")) {
         rush.setEnabled(false); }
 
     }
@@ -76,14 +76,14 @@ public class SettingForm extends JDialog implements MouseListener{
     }
 
     private void openFive(){
-        MainGui form = new MainGui();
+        FiveMode form = new FiveMode();
         form.setVisible(true);
         this.dispose();
         owner.dispose();
     }
 
     private void openSS(){
-        MainGui form = new MainGui();
+        SixSevenMode form = new SixSevenMode();
         form.setVisible(true);
         this.dispose();
         owner.dispose();
@@ -101,16 +101,16 @@ public class SettingForm extends JDialog implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() == four && !current.equals("Four")){
+        if(e.getSource() == four && !currentMode.equals("Four")){
             openFour();}
         
-        if(e.getSource() == five && !current.equals("Five")){
+        if(e.getSource() == five && !currentMode.equals("Five")){
             openFive();}
 
-        if(e.getSource() == ss && !current.equals("SS")){
+        if(e.getSource() == ss && !currentMode.equals("SS")){
             openSS();}
 
-        if(e.getSource() == rush && !current.equals("Rush")){
+        if(e.getSource() == rush && !currentMode.equals("Rush")){
             openRush();}
 
 

@@ -229,8 +229,8 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        plus = CreateButton(plus, "+", 50, Color.WHITE);
-        //plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
+        //plus = CreateButton(plus, "+", 50, Color.WHITE);
+        plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
         minus = CreateButtonSymbols(minus, "-", 50, Color.WHITE);
@@ -341,7 +341,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(  2*60, mt, () -> {
+        mainTimer = new CountdownTimer(  1*10, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
@@ -351,8 +351,8 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
             }
             UserManager.updateScore(currentUser, finalScore);
             JOptionPane.showMessageDialog(this, 
-            "หมดเวลาการแข่งขัน!\nผู้เล่น: " + currentUser + "\nคะแนนที่ทำได้: " + finalScore, 
-            "Time's Up", 
+            "Time's Up!\nผู้เล่น: " + currentUser + "\nYour sscore is: " + finalScore, 
+            "หมดเวลา", 
             JOptionPane.INFORMATION_MESSAGE);
             
             //JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " + finalScore);
@@ -409,7 +409,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         }
         ip.setText("");
         mid.setText("00:15");
-        mt.setText("05:00");
+        mt.setText("02:00");
 
         N1.setText("0");
         N2.setText("0");
@@ -476,7 +476,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num);
+                    ScoreManager.checkScore(result, scr_num, "Rush");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
