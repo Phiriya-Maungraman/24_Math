@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.ImageIcon;
@@ -19,7 +20,8 @@ public class How2PlayForm extends JDialog{
     public void HowScreen(){
         ImageIcon htscreen = new ImageIcon("./Icon/HowToPlay.png");
         htp = new JLabel(htscreen);
-        htp.setBounds(-10, -20, 1000, 450);
+        htp.setBounds(-85, -100, 1000, 700);
+        cp.setBackground(new Color(30, 42, 68));
         cp.add(htp);
     }
 
@@ -28,7 +30,7 @@ public class How2PlayForm extends JDialog{
     cp.setLayout(null); }
 
     public void Finally() {
-        this.setSize(1000, 450);
+        this.setSize(850, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
