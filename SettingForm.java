@@ -1,11 +1,14 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+
 
 public class SettingForm extends JDialog implements MouseListener{
     Container cp;
     JButton four,five,ss,rush,lg;
+    JLabel logo,nm,mode,st;
     JFrame owner;
     String currentMode;
     public SettingForm(JFrame owner, String currentMode){
@@ -17,37 +20,71 @@ public class SettingForm extends JDialog implements MouseListener{
         Finally();
     }
 
-     public JButton CreateButton(JButton button, String text, int fontSize, Color bgColor) {
-        button = new JButton(text);
+     public JButton CreateButtonIcon(JButton button, String text, ImageIcon Icon, int fontSize, Color lnColor,
+            Color bgColor) {
+        button = new JButton(text, Icon);
         button.setFont(new Font("", Font.BOLD, fontSize));
-        button.setBackground(new Color(58, 74, 112));
+        button.setBackground(new Color(60, 74, 106));
+        button.setBorder(new LineBorder(lnColor, 2));
         button.setForeground(bgColor);
+        button.setHorizontalTextPosition(JButton.CENTER); 
+        button.setVerticalTextPosition(JButton.BOTTOM);
         button.setFocusable(false);
         cp.add(button);
         return button;
+    } 
+
+    public JLabel CreateJLable(JLabel lable, String text, int fontSize, Color bgColor){
+        lable = new JLabel(text);
+        lable.setFont(new Font("", Font.PLAIN, fontSize));
+        lable.setForeground(bgColor);
+        cp.add(lable);
+        return lable;
     }
 
+
+
     public void settingMenu(){
-        four = CreateButton(four, "4-digit number", 35, Color.WHITE);
-        four.setBounds(50,50,100,35);
-        four.setSize(300,50);
+        four = CreateButtonIcon(four, "4-digit number",new ImageIcon("./Icon/Fouric.png"), 20, new Color(77, 92, 128),Color.WHITE);
+        four.setBounds(25,150,200,100);
         four.addMouseListener(this);
-        five = CreateButton(five, "5-digit number", 35, Color.WHITE);
-        five.setBounds(50,150,100,35);
-        five.setSize(300,50);
+        five = CreateButtonIcon(five, "5-digit number",new ImageIcon("./Icon/Fiveic.png"), 20, new Color(77, 92, 128),Color.WHITE);
+        five.setBounds(250,150,200,100);
         five.addMouseListener(this);
-        ss = CreateButton(ss, "67 Mode", 35, Color.WHITE);
-        ss.setBounds(50,250,100,35);
-        ss.setSize(300,50);
+        ss = CreateButtonIcon(ss, "67 Mode",new ImageIcon("./Icon/SSic.png"), 20, new Color(77, 92, 128),Color.WHITE);
+        ss.setBounds(25,275,200,100);
         ss.addMouseListener(this);
-        rush = CreateButton(rush, "Rush Mode", 35, Color.WHITE);
-        rush.setBounds(50,350,100,35);
-        rush.setSize(300,50);
+        rush = CreateButtonIcon(rush, "Rush Mode",new ImageIcon("./Icon/Rushic.png"), 20, new Color(77, 92, 128),Color.WHITE);
+        rush.setBounds(250, 275,200,100);
         rush.addMouseListener(this);
-        lg = CreateButton(lg, "Log Out", 35, Color.RED);
-        lg.setBounds(50,450,100,35);
-        lg.setSize(300,50);
+        //lg = CreateButtonIcon(lg, "Log out",new ImageIcon(""), 20, Color.RED,Color.RED );
+        ImageIcon lgic = new ImageIcon("./Icon/LogOutic.png");
+        lg = new JButton("Log out",lgic);
+        lg.setBounds(50,500,400,50);
+        lg.setFont(new Font("",Font.BOLD,25));
+        lg.setBackground(new Color(30, 42, 68));
+        lg.setBorder(new LineBorder(Color.RED, 2));
+        lg.setHorizontalTextPosition(JButton.RIGHT);
+        lg.setVerticalTextPosition(JButton.CENTER);
+        lg.setIconTextGap(10);
+        lg.setForeground(Color.RED);    
+        lg.setFocusable(false);
+        cp.add(lg);
         lg.addMouseListener(this);
+
+        ImageIcon tflg = new ImageIcon("./Icon/24Logo.png");
+        logo = new JLabel(tflg);
+        logo.setBounds(25,20,70,70);
+        cp.add(logo);
+
+        nm = CreateJLable(nm, "24Math", 25, Color.WHITE);
+        nm.setBounds(105,0,100,70);
+
+        st = CreateJLable(st, "Setting", 20, new Color(174, 185, 214));
+        st.setBounds(105,30,100,70);
+
+        mode = CreateJLable(mode, "Game Mode", 30, new Color(174, 185, 214));
+        mode.setBounds(150,85,200,70);
 
         if (currentMode.equals("Four")) {
         four.setEnabled(false); }
@@ -65,7 +102,7 @@ public class SettingForm extends JDialog implements MouseListener{
     cp.setLayout(null); }
 
     public void Finally() {
-        this.setSize(400, 650);
+        this.setSize(490, 650);
         this.setLocation(1400,150);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
