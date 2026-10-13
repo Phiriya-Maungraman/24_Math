@@ -11,7 +11,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;
     JTextField ip;
     JPanel gamePanel;
-    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft;
+    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft, bg;
     RandomNumber randomizer;
     boolean isFirstRandom = true;
     boolean hasRandomized = false;
@@ -78,11 +78,12 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     public void Initial() {
         cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
-        cp.setBackground(new Color(30, 42, 68));
+        cp.setBackground(new Color(43, 18, 48));
         gamePanel = new JPanel(null);
         gamePanel.setPreferredSize(new Dimension(850, 650));
-        gamePanel.setBackground(new Color(30, 42, 68));
+        gamePanel.setBackground(new Color(43, 18, 48));
         cp.add(gamePanel);
+        
     }
 
     public JButton CreateButton(JButton button, String text, int fontSize, Color bgColor) {
@@ -113,7 +114,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
             Color bgColor) {
         button = new JButton(text, Icon);
         button.setFont(new Font("", Font.BOLD, fontSize));
-        button.setBackground(new Color(30, 42, 68));
+        button.setBackground(new Color(43, 18, 48));
         button.setBorder(new LineBorder(lnColor, 2));
         button.setForeground(bgColor);
         button.setFocusable(false);
@@ -124,7 +125,8 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     public JButton CreateButtonSymbols(JButton button, String text, int fontSize, Color bgColor) {
         button = new JButton(text);
         button.setFont(new Font("", Font.BOLD, fontSize));
-        button.setBackground(new Color(58, 74, 112));
+        button.setBackground(new Color(112, 57, 122));
+        button.setBorder(new LineBorder(new Color(147, 85, 147),2));
         button.setForeground(bgColor);
         button.setFocusable(false);
         gamePanel.add(button);
@@ -170,8 +172,9 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         ra.setBounds(200, 220, 50, 25);
         ra.setSize(350, 100);
         ra.setFont(new Font("", Font.PLAIN, 50));
-        ra.setBackground(new Color(255, 138, 61));
+        ra.setBackground(new Color(255, 92, 122));
         ra.setForeground(new Color(30, 42, 68));
+        ra.setBorder(new LineBorder(new Color(255, 125, 149), 2));
         ra.setHorizontalTextPosition(JButton.RIGHT);
         ra.setVerticalTextPosition(JButton.CENTER);
         ra.setIconTextGap(20);
@@ -281,7 +284,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void SettingButton() {
-        st = CreateButtonIcon(st, "Setting", new ImageIcon("./Icon/SettingIcon.png"), 17, new Color(60, 74, 106),
+        st = CreateButtonIcon(st, "Setting", new ImageIcon("./Icon/SettingIcon.png"), 17, new Color(142, 84, 142),
                 Color.WHITE);
         st.setBounds(700, 10, 125, 30);
         /*
@@ -303,7 +306,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void HowtoButton() {
-        ht = CreateButtonIcon(ht, "#How2Play", new ImageIcon(""), 17, new Color(60, 74, 106), Color.WHITE);
+        ht = CreateButtonIcon(ht, "#How2Play", new ImageIcon(""), 17, new Color(142, 84, 142), Color.WHITE);
         ht.setBounds(550, 10, 125, 30);
 
     }
@@ -319,7 +322,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         mid.setBounds(300, 5, 50, 30);
         mid.setSize(200, 60);
         mid.setFont(new Font("", Font.PLAIN, 60));
-        mid.setForeground(new Color(255, 209, 102));
+        mid.setForeground(new Color(255, 92, 122));
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
 
@@ -377,7 +380,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void RankingBoard() {
-        ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15, new Color(60, 74, 106),
+        ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15, new Color(142, 84, 142),
                 Color.WHITE);
         ldr.setBounds(120, 10, 125, 30);
 
@@ -392,8 +395,12 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         this.setTitle("24Math Rush-Mode");
         this.setSize(850, 750);
         this.setLocationRelativeTo(null);
-        gamePanel.setPreferredSize(new Dimension(850, 650));
-        gamePanel.setMinimumSize(new Dimension(850, 650));
+        gamePanel.setPreferredSize(new Dimension(850, 750));
+        gamePanel.setMinimumSize(new Dimension(850, 750));
+        ImageIcon back = new ImageIcon("./Icon/RushModeBG.png");
+        bg = new JLabel(back);
+        bg.setBounds(0,-20,850,750);
+        gamePanel.add(bg);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
         this.setIconImage(logo.getImage());

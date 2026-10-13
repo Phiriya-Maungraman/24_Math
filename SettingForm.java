@@ -19,9 +19,10 @@ public class SettingForm extends JDialog implements MouseListener{
 
      public JButton CreateButton(JButton button, String text, int fontSize, Color bgColor) {
         button = new JButton(text);
-        button.setFont(new Font("", Font.PLAIN, fontSize));
-        button.setBackground(bgColor);
-        button.setFocusable(true);
+        button.setFont(new Font("", Font.BOLD, fontSize));
+        button.setBackground(new Color(58, 74, 112));
+        button.setForeground(bgColor);
+        button.setFocusable(false);
         cp.add(button);
         return button;
     }
@@ -43,9 +44,10 @@ public class SettingForm extends JDialog implements MouseListener{
         rush.setBounds(50,350,100,35);
         rush.setSize(300,50);
         rush.addMouseListener(this);
-        lg = CreateButton(lg, "Log Out", 35, Color.WHITE);
+        lg = CreateButton(lg, "Log Out", 35, Color.RED);
         lg.setBounds(50,450,100,35);
         lg.setSize(300,50);
+        lg.addMouseListener(this);
 
         if (currentMode.equals("Four")) {
         four.setEnabled(false); }
@@ -59,6 +61,7 @@ public class SettingForm extends JDialog implements MouseListener{
     }
     public void Initial() {
     cp = this.getContentPane();
+    cp.setBackground(new Color(30, 42, 68));
     cp.setLayout(null); }
 
     public void Finally() {
@@ -96,6 +99,13 @@ public class SettingForm extends JDialog implements MouseListener{
         owner.dispose();
     }
 
+    private void openLogin() {
+        LoginForm form = new LoginForm();
+        form.setVisible(true);
+        this.dispose();
+        owner.dispose();
+    }
+
 
 
 
@@ -112,7 +122,9 @@ public class SettingForm extends JDialog implements MouseListener{
 
         if(e.getSource() == rush && !currentMode.equals("Rush")){
             openRush();}
-
+        
+        if(e.getSource() == lg){
+            openLogin();}
 
     }
 

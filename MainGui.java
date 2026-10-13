@@ -392,8 +392,8 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         this.setTitle("24Math 4-digit number");
         this.setSize(850, 750);
         this.setLocationRelativeTo(null);
-        gamePanel.setPreferredSize(new Dimension(850, 650));
-        gamePanel.setMinimumSize(new Dimension(850, 650));
+        gamePanel.setPreferredSize(new Dimension(850, 750));
+        gamePanel.setMinimumSize(new Dimension(850, 750));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
         this.setIconImage(logo.getImage());

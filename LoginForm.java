@@ -62,9 +62,16 @@ public class LoginForm extends JFrame implements MouseListener {
         form.setVisible(true);
     }
 
+    public void openSignin(){
+        SigninForm form = new SigninForm();
+        form.setVisible(true);
+    }
+
     public void Finally() {
         this.setTitle("Login");
         this.setSize(420, 200);
+        ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
+        this.setIconImage(logo.getImage());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -94,17 +101,18 @@ public class LoginForm extends JFrame implements MouseListener {
 
         // 2. กรณีคลิกปุ่ม Register
         else if (e.getSource() == reg) {
-            if (username.isEmpty() || password.isEmpty()) {
+            openSignin();
+            this.dispose();
+             /*if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please input Username and Password for Register", "แจ้งเตือน", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
             boolean isRegistered = UserManager.register(username, password);
             if (isRegistered) {
                 JOptionPane.showMessageDialog(this, "Register success you can Login to play right now", "สำเร็จ", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "This name already used", "เกิดข้อผิดพลาด", JOptionPane.ERROR_MESSAGE);
-            }
+            }*/
         }
     }
     @Override
