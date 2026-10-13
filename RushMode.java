@@ -11,7 +11,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;
     JTextField ip;
     JPanel gamePanel;
-    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft, bg;
+    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft, bg, midic, mtic;
     RandomNumber randomizer;
     boolean isFirstRandom = true;
     boolean hasRandomized = false;
@@ -318,13 +318,16 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void MidTimer() {
+        ImageIcon mt = new ImageIcon("./Icon/MidRush.png");
         mid = new JLabel("00:15");
-        mid.setBounds(300, 5, 50, 30);
-        mid.setSize(200, 60);
-        mid.setFont(new Font("", Font.PLAIN, 60));
+        midic = new JLabel(mt);
+        mid.setBounds(300, 5,200, 60);
+        midic.setBounds(375,5,200,60);
+        mid.setFont(new Font("", Font.ITALIC, 60));
         mid.setForeground(new Color(255, 92, 122));
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
+        gamePanel.add(midic);
 
         // "ถ้าเวลาหมด ให้สั่ง randomizer.randomizeAll()"
         midTimer = new CountdownTimer(15, mid, () -> {
@@ -337,12 +340,15 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void MainTimer() {
+        ImageIcon main = new ImageIcon("./Icon/MainRush.png");
         mt = new JLabel("02:00");
-        mt.setBounds(25, 10, 50, 30);
-        mt.setSize(100, 30);
+        mtic = new JLabel(main);
+        mt.setBounds(25, 10, 100, 30);
+        mtic.setBounds(52, 10, 100, 30);
         mt.setFont(new Font("", Font.BOLD, 25));
-        mt.setForeground(Color.WHITE);
+        mt.setForeground(new Color(255, 209, 102));
         gamePanel.add(mt);
+        gamePanel.add(mtic);
 
         mainTimer = new CountdownTimer(  1*10, mt, () -> {
             midTimer.stop();
