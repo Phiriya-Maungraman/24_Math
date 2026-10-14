@@ -1,13 +1,34 @@
 package lib.function;
 import java.util.Stack;
+
+/**
+ * ADT สำหรับการคำนวณตัวเลข โดยใช้ Stack ในการจัดการลำดับความสำคัญ
+ * 
+ */
+
 public class ReicveNum {
     private String number;
     private double result;
+
+/**
+ * สร้างอ็อบเจกต์ ReicveNum คำนวณค่า
+ * 
+ * @param expression ค่าทางคณิตศาสตร์
+ */
 
     public ReicveNum(String expression) {
         this.number = expression;
         this.result = process(expression);
     }
+
+    /**
+     * ทำการประมวลผลและคำนวณค่าที่รับเข้ามา
+     * 
+     * @param expression ค่าทางคณิตศาสตร์ที่ต้องการคำนวณ
+     * @return ผลลัพธ์ของการคำนวณ
+     * @throws UnsupportedOperationException หากเกิดข้อผิดพลาดในการคำนวณ
+     */
+
     public double process(String expression){
         char[] tokens =  expression.toCharArray();
 
@@ -56,13 +77,32 @@ public class ReicveNum {
         
    
     }
-    // ลำดับความสำคัญของเครื่องหมาย (Precedence)
+
+    /**
+     * ตรวจสอบลำดับความสำคัญของเครื่องหมาย
+     * 
+     * @param op1 เครื่องหมายตัวใหม่ที่กำลังจะนำเข้า Stack
+     * @param op2 เครื่องหมายที่อยู่บนสุดของ Stack ในปัจจุบัน
+     * @return true หาก op1 มีลำดับความสำคัญน้อยกว่าหรือเท่ากับ op2, false ถือว่ามากกว่า
+     */
+
     private boolean priority(char op1,char op2){
         if (op2 == '(' || op2 == ')') return false;
         if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')) return false;
         return true;
 
     }
+
+    /**
+     * ดำเนินการทางคณิตศาสตร์ระหว่างตัวเลขสองจำนวนตามเครื่องหมายที่กำหนด
+     * 
+     * @param op เครื่องหมายทางคณิตศาสตร์
+     * @param b ตัวถูกดำเนินการตัวหลัง
+     * @param a ตัวถูกดำเนินการตัวแรก
+     * @return ผลลัพธ์จากการคำนวณ
+     * @throws UnsupportedOperationException หากมีการหารด้วยศูนย์
+     */
+
     private double applyOp(char op, double b, double a) {
         switch (op) {
             case '+': return a + b;
@@ -75,6 +115,11 @@ public class ReicveNum {
         return 0;
     }
 
+    /**
+     * ดึงค่าผลลัพธ์ของการคำนวณ
+     * 
+     * @return ผลลัพธ์การคำนวณแปลงเป็น String
+     */
 
     public String getresult(){
         return String.valueOf(result);

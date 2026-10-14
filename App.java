@@ -1,13 +1,9 @@
 import lib.LoginForm;
 
-
-public class App {    
+public class App {
     public static void main(String[] args) {
         //new MainGui();
         new LoginForm();
         //new RushMode();
-        
-        
-       
     }
 }
