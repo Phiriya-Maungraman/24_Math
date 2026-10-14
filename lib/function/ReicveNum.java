@@ -1,5 +1,4 @@
-package lib;
-
+package lib.function;
 import java.util.Stack;
 public class ReicveNum {
     private String number;

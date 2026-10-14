@@ -1,4 +1,5 @@
-import lib.*;
+package lib;
+import lib.function.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -11,16 +12,16 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;
     JTextField ip;
     JPanel gamePanel;
-    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft, bg, midic, mtic;
+    JLabel eq, sum, mid, scr, scr_num, mt, htp, ft, bg;
     RandomNumber randomizer;
     boolean isFirstRandom = true;
     boolean hasRandomized = false;
     CountdownTimer midTimer, mainTimer;
     private String currentUser = "Guest";
-    //JLabel userLabel;
+    JLabel userLabel;
 
     public RushMode() {
-        this("Guest");
+
     }
 
     public RushMode(String username) {
@@ -40,18 +41,20 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         MainTimer();
         ShowScore();
         RankingBoard();
-        //ShowCurrentUser();
+        ShowCurrentUser();
         Finally();
         event();
     }
-// public void ShowCurrentUser() {
-//     userLabel = new JLabel("Player: " + currentUser);
-//     userLabel.setBounds(0, 0, 250, 30);
-//     userLabel.setFont(new Font("", Font.BOLD, 18));
-//     userLabel.setForeground(new Color(39, 76, 67));
-//     userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//     gamePanel.add(userLabel);
-// }
+
+    public void ShowCurrentUser() {
+        userLabel = new JLabel("Player: " + currentUser);
+        userLabel.setBounds(570, 45, 250, 30);
+        userLabel.setFont(new Font("", Font.BOLD, 18));
+        userLabel.setForeground(new Color(255, 165, 0));
+        userLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gamePanel.add(userLabel);
+    }
+
     public void event() {
         ip.addActionListener(this);
         ip.addKeyListener(this);
@@ -83,7 +86,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         gamePanel.setPreferredSize(new Dimension(850, 650));
         gamePanel.setBackground(new Color(43, 18, 48));
         cp.add(gamePanel);
-        
+
     }
 
     public JButton CreateButton(JButton button, String text, int fontSize, Color bgColor) {
@@ -95,7 +98,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         gamePanel.add(button);
         return button;
     }
-    
+
     /*
      * public JButton CreateButton2(JButton button, String text, int fontSize, Color
      * bgColor){
@@ -126,7 +129,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         button = new JButton(text);
         button.setFont(new Font("", Font.BOLD, fontSize));
         button.setBackground(new Color(112, 57, 122));
-        button.setBorder(new LineBorder(new Color(147, 85, 147),2));
+        button.setBorder(new LineBorder(new Color(147, 85, 147), 2));
         button.setForeground(bgColor);
         button.setFocusable(false);
         gamePanel.add(button);
@@ -232,7 +235,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        //plus = CreateButton(plus, "+", 50, Color.WHITE);
+        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -301,7 +304,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     private void openSetting() {
-        SettingForm form = new SettingForm(this,"Rush");
+        SettingForm form = new SettingForm(this, "Rush", currentUser);
         form.setVisible(true);
     }
 
@@ -318,16 +321,13 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void MidTimer() {
-        ImageIcon mt = new ImageIcon("./Icon/MidRush.png");
         mid = new JLabel("00:15");
-        midic = new JLabel(mt);
-        mid.setBounds(300, 5,200, 60);
-        midic.setBounds(375,5,200,60);
-        mid.setFont(new Font("", Font.ITALIC, 60));
+        mid.setBounds(300, 5, 50, 30);
+        mid.setSize(200, 60);
+        mid.setFont(new Font("", Font.PLAIN, 60));
         mid.setForeground(new Color(255, 92, 122));
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
-        gamePanel.add(midic);
 
         // "ถ้าเวลาหมด ให้สั่ง randomizer.randomizeAll()"
         midTimer = new CountdownTimer(15, mid, () -> {
@@ -340,31 +340,29 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     public void MainTimer() {
-        ImageIcon main = new ImageIcon("./Icon/MainRush.png");
         mt = new JLabel("02:00");
-        mtic = new JLabel(main);
-        mt.setBounds(25, 10, 100, 30);
-        mtic.setBounds(52, 10, 100, 30);
+        mt.setBounds(25, 10, 50, 30);
+        mt.setSize(100, 30);
         mt.setFont(new Font("", Font.BOLD, 25));
-        mt.setForeground(new Color(255, 209, 102));
+        mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
-        gamePanel.add(mtic);
 
-        mainTimer = new CountdownTimer(  1*10, mt, () -> {
+        mainTimer = new CountdownTimer(2 * 60, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
                 finalScore = Integer.parseInt(scr_num.getText().trim());
             } catch (NumberFormatException e) {
-                finalScore = 0; 
+                finalScore = 0;
             }
-            UserManager.updateScore(currentUser, finalScore);
-            JOptionPane.showMessageDialog(this, 
-            "Time's Up!\nผู้เล่น: " + currentUser + "\nYour sscore is: " + finalScore, 
-            "หมดเวลา", 
-            JOptionPane.INFORMATION_MESSAGE);
-            
-            //JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " + finalScore);
+            UserManager.updateScore(currentUser, "Rush", finalScore);
+            JOptionPane.showMessageDialog(this,
+                    "Time's Up!\nผู้เล่น: " + currentUser + "\nYour sscore is: " + finalScore,
+                    "หมดเวลา",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " +
+            // finalScore);
             resetGame();
         });
         mt.setFocusable(false);
@@ -393,7 +391,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
     }
 
     private void openRanking() {
-        RankingForm form = new RankingForm(this);
+        RankingForm form = new RankingForm(this, "Rush");
         form.setVisible(true);
     }
 
@@ -401,11 +399,12 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         this.setTitle("24Math Rush-Mode");
         this.setSize(850, 750);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         gamePanel.setPreferredSize(new Dimension(850, 750));
         gamePanel.setMinimumSize(new Dimension(850, 750));
         ImageIcon back = new ImageIcon("./Icon/RushModeBG.png");
         bg = new JLabel(back);
-        bg.setBounds(0,-20,850,750);
+        bg.setBounds(0, -20, 850, 750);
         gamePanel.add(bg);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
@@ -557,46 +556,27 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getSource() == ip) {
-            if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                String text = ip.getText();
-
-                // ต้องมีข้อความอยู่ในช่องก่อนถึงจะทำการลบได้
-                if (!text.isEmpty()) {
-                    // คลุมดำข้อความบางส่วนไว้เพื่อลบ
-                    if (ip.getSelectedText() != null) {
-                        String selected = ip.getSelectedText();
-                        if (selected.contains(N1.getText()))
-                            N1.setEnabled(true);
-                        if (selected.contains(N2.getText()))
-                            N2.setEnabled(true);
-                        if (selected.contains(N3.getText()))
-                            N3.setEnabled(true);
-                        if (selected.contains(N4.getText()))
-                            N4.setEnabled(true);
-                    }
-                    // ลบถอยหลังทีละตัว
-                    else {
-                        char lastChar = text.charAt(text.length() - 1);
-                        String lastStr = String.valueOf(lastChar);
-
-                        JButton[] num = { N1, N2, N3, N4 };
-                        for (JButton btn : num) {
-                            // เช็คเฉพาะปุ่มที่ปิดการใช้งานอยู่ และมีตัวเลขตรงกับตัวที่ถูกลบ
-                            if (!btn.isEnabled() && btn.getText().equals(lastStr)) {
-                                btn.setEnabled(true);
-                                break; // ปลดล็อกแค่ปุ่มเดียวแล้วออกจากลูปทันที
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getSource() == ip) {
+            // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
+            String currentText = ip.getText();
+            JButton[] numButtons = { N1, N2, N3, N4 };
+
+            // วนเช็คปุ่มตัวเลขทุกปุ่ม
+            for (JButton btn : numButtons) {
+                if (btn != null) {
+                    String btnText = btn.getText();
+
+                    if (!btn.isEnabled() && !currentText.contains(btnText)) {
+                        btn.setEnabled(true);
+                    }
+                }
+            }
+        }
 
     }
 

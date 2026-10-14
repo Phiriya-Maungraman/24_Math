@@ -1,5 +1,4 @@
-package lib;
-
+package lib.function;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -8,7 +7,7 @@ public class CountdownTimer {
     private int initialSeconds;
     private int seconds;
     private JLabel targetLabel;
-    private Runnable onTimeUp; // ตัวแปรเก็บชุดคำสั่งที่จะทำเมื่อหมดเวลา
+    private Runnable onTimeUp; 
 
     public CountdownTimer() {
         this.initialSeconds = 0;

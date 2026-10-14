@@ -1,4 +1,5 @@
-import lib.*;
+package lib;
+import lib.function.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -17,10 +18,10 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     boolean hasRandomized = false;
     CountdownTimer midTimer, mainTimer;
     private String currentUser = "Guest";
-    //JLabel userLabel;
+    JLabel userLabel;
 
     public MainGui() {
-        this("Guest");
+
     }
 
     public MainGui(String username) {
@@ -31,7 +32,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         RandomButton();
         ResetButton();
         InputNum();
-        FunctionText();
+        //FunctionText();
         Symbols();
         Sum();
         SettingButton();
@@ -40,18 +41,20 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         MainTimer();
         ShowScore();
         RankingBoard();
-        //ShowCurrentUser();
+        ShowCurrentUser();
         Finally();
         event();
     }
-// public void ShowCurrentUser() {
-//     userLabel = new JLabel("Player: " + currentUser);
-//     userLabel.setBounds(0, 0, 250, 30);
-//     userLabel.setFont(new Font("", Font.BOLD, 18));
-//     userLabel.setForeground(new Color(39, 76, 67));
-//     userLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//     gamePanel.add(userLabel);
-// }
+
+    public void ShowCurrentUser() {
+        userLabel = new JLabel("Player : " + currentUser);
+        userLabel.setBounds(575, 45, 250, 30);
+        userLabel.setFont(new Font("", Font.BOLD, 18));
+        userLabel.setForeground(new Color(255, 165, 0));
+        userLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gamePanel.add(userLabel);
+    }
+
     public void event() {
         ip.addActionListener(this);
         ip.addKeyListener(this);
@@ -94,7 +97,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         gamePanel.add(button);
         return button;
     }
-    
+
     /*
      * public JButton CreateButton2(JButton button, String text, int fontSize, Color
      * bgColor){
@@ -229,7 +232,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        //plus = CreateButton(plus, "+", 50, Color.WHITE);
+        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -298,7 +301,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     private void openSetting() {
-        SettingForm form = new SettingForm(this,"Four");
+        SettingForm form = new SettingForm(this, "Four", currentUser);
         form.setVisible(true);
     }
 
@@ -341,21 +344,22 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(  5*60, mt, () -> {
+        mainTimer = new CountdownTimer(5 * 60, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
                 finalScore = Integer.parseInt(scr_num.getText().trim());
             } catch (NumberFormatException e) {
-                finalScore = 0; 
+                finalScore = 0;
             }
-            UserManager.updateScore(currentUser, finalScore);
-            JOptionPane.showMessageDialog(this, 
-            "Time's Up!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore, 
-            "หมดเวลา", 
-            JOptionPane.INFORMATION_MESSAGE);
-            
-            //JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " + finalScore);
+            UserManager.updateScore(currentUser, "Four", finalScore);
+            JOptionPane.showMessageDialog(this,
+                    "Time's Up!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore,
+                    "หมดเวลา",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " +
+            // finalScore);
             resetGame();
         });
         mt.setFocusable(false);
@@ -384,7 +388,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     }
 
     private void openRanking() {
-        RankingForm form = new RankingForm(this);
+        RankingForm form = new RankingForm(this, "Four");
         form.setVisible(true);
     }
 
@@ -392,6 +396,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         this.setTitle("24Math 4-digit number");
         this.setSize(850, 750);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         gamePanel.setPreferredSize(new Dimension(850, 750));
         gamePanel.setMinimumSize(new Dimension(850, 750));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -476,7 +481,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num,"Four");
+                    ScoreManager.checkScore(result, scr_num, "Four");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
@@ -544,47 +549,27 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getSource() == ip) {
-            if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                String text = ip.getText();
-
-                // ต้องมีข้อความอยู่ในช่องก่อนถึงจะทำการลบได้
-                if (!text.isEmpty()) {
-                    // คลุมดำข้อความบางส่วนไว้เพื่อลบ
-                    if (ip.getSelectedText() != null) {
-                        String selected = ip.getSelectedText();
-                        if (selected.contains(N1.getText()))
-                            N1.setEnabled(true);
-                        if (selected.contains(N2.getText()))
-                            N2.setEnabled(true);
-                        if (selected.contains(N3.getText()))
-                            N3.setEnabled(true);
-                        if (selected.contains(N4.getText()))
-                            N4.setEnabled(true);
-                    }
-                    // ลบถอยหลังทีละตัว
-                    else {
-                        char lastChar = text.charAt(text.length() - 1);
-                        String lastStr = String.valueOf(lastChar);
-
-                        JButton[] num = { N1, N2, N3, N4 };
-                        for (JButton btn : num) {
-                            // เช็คเฉพาะปุ่มที่ปิดการใช้งานอยู่ และมีตัวเลขตรงกับตัวที่ถูกลบ
-                            if (!btn.isEnabled() && btn.getText().equals(lastStr)) {
-                                btn.setEnabled(true);
-                                break; // ปลดล็อกแค่ปุ่มเดียวแล้วออกจากลูปทันที
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getSource() == ip) {
+            // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
+            String currentText = ip.getText();
+            JButton[] numButtons = { N1, N2, N3, N4 };
 
+            // วนเช็คปุ่มตัวเลขทุกปุ่ม
+            for (JButton btn : numButtons) {
+                if (btn != null) {
+                    String btnText = btn.getText();
+
+                    if (!btn.isEnabled() && !currentText.contains(btnText)) {
+                        btn.setEnabled(true);
+                    }
+                }
+            }
+        }
     }
 
     @Override

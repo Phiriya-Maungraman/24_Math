@@ -1,3 +1,4 @@
+package lib;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -11,10 +12,13 @@ public class SettingForm extends JDialog implements MouseListener{
     JLabel logo,nm,mode,st;
     JFrame owner;
     String currentMode;
-    public SettingForm(JFrame owner, String currentMode){
+    String currentUser;
+
+    public SettingForm(JFrame owner, String currentMode,String currentUser){
         super(owner,"Setting",true);
         this.owner = owner;
         this.currentMode = currentMode;
+        this.currentUser = currentUser;
         Initial();
         settingMenu();
         Finally();
@@ -109,28 +113,28 @@ public class SettingForm extends JDialog implements MouseListener{
     
 
     private void openFour(){
-        MainGui form = new MainGui();
+        MainGui form = new MainGui(currentUser);
         form.setVisible(true);
         this.dispose();
         owner.dispose();
     }
 
     private void openFive(){
-        FiveMode form = new FiveMode();
+        FiveMode form = new FiveMode(currentUser);
         form.setVisible(true);
         this.dispose();
         owner.dispose();
     }
 
     private void openSS(){
-        SixSevenMode form = new SixSevenMode();
+        SixSevenMode form = new SixSevenMode(currentUser);
         form.setVisible(true);
         this.dispose();
         owner.dispose();
     }
 
     private void openRush() {
-        RushMode form = new RushMode();
+        RushMode form = new RushMode(currentUser);
         form.setVisible(true);
         this.dispose();
         owner.dispose();
@@ -140,8 +144,11 @@ public class SettingForm extends JDialog implements MouseListener{
         LoginForm form = new LoginForm();
         form.setVisible(true);
         this.dispose();
-        owner.dispose();
+        if (owner != null) {
+        owner.dispose(); // ปิดหน้าต่างเกมหลักที่ค้างอยู่ด้วย
     }
+}
+    
 
 
 

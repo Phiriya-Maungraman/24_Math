@@ -1,5 +1,4 @@
-package lib;
-
+package lib.function;
 import javax.swing.*;
 
 public class ScoreManager {

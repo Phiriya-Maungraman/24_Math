@@ -1,7 +1,8 @@
+package lib;
 import javax.swing.*;
+import lib.function.UserManager;
 import java.awt.*;
 import java.awt.event.*;
-import lib.UserManager;
 
 public class LoginForm extends JFrame implements MouseListener {
     Container cp;
@@ -63,7 +64,7 @@ public class LoginForm extends JFrame implements MouseListener {
     }
 
     public void openSignin(){
-        SigninForm form = new SigninForm();
+        SignUpForm form = new SignUpForm();
         form.setVisible(true);
     }
 
@@ -93,26 +94,15 @@ public class LoginForm extends JFrame implements MouseListener {
             if (UserManager.authenticate(username, password)) {
                 JOptionPane.showMessageDialog(this, "Login success Welcome! " + username, "สำเร็จ", JOptionPane.INFORMATION_MESSAGE);
                 openGamepanel(username);
-                this.dispose(); // ปิดหน้าต่าง Login
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Username or Password wrong", "เข้าสู่ระบบล้มเหลว", JOptionPane.ERROR_MESSAGE);
             }
         }
 
-        // 2. กรณีคลิกปุ่ม Register
         else if (e.getSource() == reg) {
             openSignin();
             this.dispose();
-             /*if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please input Username and Password for Register", "แจ้งเตือน", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            boolean isRegistered = UserManager.register(username, password);
-            if (isRegistered) {
-                JOptionPane.showMessageDialog(this, "Register success you can Login to play right now", "สำเร็จ", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "This name already used", "เกิดข้อผิดพลาด", JOptionPane.ERROR_MESSAGE);
-            }*/
         }
     }
     @Override

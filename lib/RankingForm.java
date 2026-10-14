@@ -1,14 +1,19 @@
+package lib;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import lib.*;
+
+import lib.function.User;
+import lib.function.UserManager;
 
 public class RankingForm extends JDialog {
     Container cp;
+    private String currentMode;
     // JLabel No, Name, Scr, First, FN, FS, Second, SCN, SCS, Third, THN, THS, Fourth, FON, FOS, Fifth, FIN, FIS;
 
-    public RankingForm(JFrame owner) {
+    public RankingForm(JFrame owner,String mode) {
         super(owner, "Ranking", true);
+        this.currentMode = mode;
         Initial();
         rankingLeader();
         Finally();
@@ -33,7 +38,7 @@ public class RankingForm extends JDialog {
         CreateLabel("Name", 22, Color.WHITE, headerBg);
         CreateLabel("Score", 22, Color.WHITE, headerBg);
 
-        List<User> topUsers = UserManager.getTopRankings(5);
+        List<User> topUsers = UserManager.getTopRankings(currentMode,5);
 
         Color[] rowBgColors = {
             new Color(255, 223, 0, 180),   // อันดับ 1: โทนทอง
@@ -60,7 +65,7 @@ public class RankingForm extends JDialog {
                 User user = topUsers.get(i);
                 CreateLabel(String.valueOf(i + 1), 20, textColor, rowColor);
                 CreateLabel(user.getUsername(), 20, textColor, rowColor);
-                CreateLabel(String.valueOf(user.getHighScore()), 20, textColor, rowColor);
+                CreateLabel(String.valueOf(user.getScore(currentMode)), 20, textColor, rowColor);
             } else {
                 // กรณีมีผู้เล่นไม่ถึง 5 คน ให้แสดงขีดว่างไว้
                 CreateLabel(String.valueOf(i + 1), 20, Color.LIGHT_GRAY, Color.LIGHT_GRAY);

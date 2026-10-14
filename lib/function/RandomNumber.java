@@ -1,5 +1,4 @@
-package lib;
-
+package lib.function;
 import java.util.function.Supplier;
 import javax.swing.JButton;
 

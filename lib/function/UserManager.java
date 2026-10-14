@@ -1,5 +1,4 @@
-package lib;
-
+package lib.function;
 import java.io.*;
 import java.util.*;
 
@@ -33,15 +32,18 @@ public class UserManager {
                     continue;
 
                 String[] parts = line.split(",");
-                if (parts.length >= 3) {
+                if (parts.length >= 6) {
                     String username = parts[0].trim();
                     String password = parts[1].trim();
-                    int score = 0;
+                    int scoreFour = 0 , scoreFive = 0 , scoreSS = 0 , scoreRush = 0;
                     try {
-                        score = Integer.parseInt(parts[2].trim());
+                        scoreFour = Integer.parseInt(parts[2].trim());
+                        scoreFive = Integer.parseInt(parts[3].trim());
+                        scoreSS = Integer.parseInt(parts[4].trim());
+                        scoreRush = Integer.parseInt(parts[5].trim());
                     } catch (NumberFormatException ignored) {
                     }
-                    users.add(new User(username, password, score));
+                    users.add(new User(username, password, scoreFour,scoreFive,scoreSS,scoreRush));
                 }
             }
         } catch (IOException e) {
@@ -52,7 +54,7 @@ public class UserManager {
     /** บันทึกข้อมูลผู้ใช้ทั้งหมดกลับลงไฟล์ users.csv */
     public static void saveUsers() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            writer.write("username,password,high_score");
+            writer.write("username,password,scoreFour,scoreFive,scoreSS,scoreRush");
             writer.newLine();
             for (User u : users) {
                 writer.write(u.toCsvRow());
@@ -80,17 +82,17 @@ public class UserManager {
                 return false; // ชื่อผู้ใช้ซ้ำ
             }
         }
-        users.add(new User(username, password, 0));
+        users.add(new User(username, password, 0,0,0,0));
         saveUsers();
         return true;
     }
 
     /** อัปเดตคะแนนสูงสุดของผู้เล่น */
-    public static void updateScore(String username, int newScore) {
+    public static void updateScore(String username,String mode, int newScore) {
         for (User u : users) {
             if (u.getUsername().equalsIgnoreCase(username)) {
-                if (newScore > u.getHighScore()) {
-                    u.setHighScore(newScore);
+                if (newScore > u.getScore(mode)) {
+                    u.setHighScore(mode,newScore);
                     saveUsers();
                 }
                 break;
@@ -99,16 +101,22 @@ public class UserManager {
     }
 
     /** ดึงรายชื่อผู้เล่นเรียงตามคะแนนสูงสุด (สำหรับ RankingForm) */
-    public static List<User> getTopRankings(int limit) {
+    public static List<User> getTopRankings(String mode,int limit) {
         // 1. ทำสำเนา List ขึ้นมาใหม่
-        List<User> sortedList = new ArrayList<>(users);
+        List<User> sortedList = new ArrayList<>();
+
+        for (User u : users) {
+            if (u.getScore(mode) > 0) {
+                sortedList.add(u);
+            }
+        }
 
         // สั่งเรียงคะแนนจากมากไปน้อย
         Collections.sort(sortedList, new Comparator<User>() {
             @Override
             public int compare(User u1, User u2) {
                 // เอาคะแนน u2 ตั้งลบด้วย u1 เพื่อให้เรียงจาก มาก -> น้อย
-                return u2.getHighScore() - u1.getHighScore();
+                return u2.getScore(mode) - u1.getScore(mode);
             }
         });
 
@@ -120,25 +128,12 @@ public class UserManager {
 
         return result;
     }
-    // public static List<User> getTopRankings(int limit) {
-    // List<User> sortedList = new ArrayList<>(users);
-    // sortedList.sort((u1, u2) -> Integer.compare(u2.getHighScore(),
-    // u1.getHighScore()));
-    // if (sortedList.size() > limit) {
-    // return sortedList.subList(0, limit);
-    // }
-    // return sortedList;
-    // }
 
     /** สร้างไฟล์เริ่มต้นกรณีที่ยังไม่มีไฟล์ users.csv */
     private static void createDefaultCsv(File file) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write("username,password,high_score\n");
-            writer.write("Matthiew,1234,150\n");
-            writer.write("Tae,1234,100\n");
-            writer.write("Aut,1234,50\n");
-            writer.write("Graph,1234,25\n");
-            writer.write("Test,1234,10\n");
+            writer.write("username,password,scoreFour,scoreFive,scoreSS,scoreRush\n");
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
