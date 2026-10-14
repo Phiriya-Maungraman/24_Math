@@ -349,7 +349,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
+        mainTimer = new CountdownTimer(5 * 60, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {

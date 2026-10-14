@@ -322,7 +322,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
 
     /** เปิดหน้าต่างวิธีการเล่น (How2Play) */
     private void openTimesup() {
-        TimeupForm form = new TimeupForm(null, currentUser, currentUser);
+        TimeupForm form = new TimeupForm(this, currentUser, currentUser);
         form.setVisible(true);
     }
 
@@ -353,7 +353,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
+        mainTimer = new CountdownTimer(2 * 60, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
