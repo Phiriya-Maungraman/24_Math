@@ -20,6 +20,10 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     private String currentUser = "Guest";
     JLabel userLabel;
 
+    public MainGui() {
+
+    }
+
     public MainGui(String username) {
         this.currentUser = username;
         Initial();
@@ -28,7 +32,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         RandomButton();
         ResetButton();
         InputNum();
-        //FunctionText();
         Symbols();
         Sum();
         SettingButton();
@@ -217,12 +220,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     }
 
-    public void FunctionText() {
-        ft = new JLabel("function text");
-        ft.setBounds(275, 360, 200, 25);
-        ft.setFont(new Font("", Font.BOLD, 20));
-        gamePanel.add(ft);
-    }
 
     public void Symbols() { //สร้างเครื่องหมายทางคณิต
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");

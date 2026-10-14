@@ -1,7 +1,22 @@
 package lib.function;
 import javax.swing.*;
 
+
+/**
+ * ADT สำหรับจัดการและตรวจสอบคะแนนของผู้เล่นตามโหมดเกมที่กำหนด 
+ * โดยประเมินจากผลลัพธ์ของการคำนวณเปรียบเทียบกับเกณฑ์คะแนนของแต่ละโหมด
+ */
+
 public class ScoreManager {
+
+    /**
+     * ตรวจสอบผลลัพธ์การคำนวณและกำหนดคะแนน ตามโหมดเกมปัจจุบัน
+     * 
+     * @param result ผลลัพธ์ของการคำนวณที่ต้องการตรวจสอบ
+     * @param score คะแนนปัจจุบันของผู้เล่นบนหน้าจอ
+     * @param currentMode ชื่อโหมดเกมปัจจุบันที่กำลังเล่นอยู่
+     * @return true หากผู้เล่นทำค่าได้ตรงตามเป้าหมายของโหมดนั้นๆ, false ในกรณีอื่นๆ
+     */
 
     public static boolean checkScore(String result, JLabel score, String currentMode) {
         try {

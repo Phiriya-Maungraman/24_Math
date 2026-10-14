@@ -63,7 +63,6 @@ public class ReicveNum {
         return true;
 
     }
-    
     private double applyOp(char op, double b, double a) {
         switch (op) {
             case '+': return a + b;

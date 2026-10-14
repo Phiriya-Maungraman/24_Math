@@ -223,7 +223,6 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
 
     }
 
-
     public void Symbols() {
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
@@ -341,7 +340,6 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         });
     }
 
-
     public void MainTimer() {
         ImageIcon main = new ImageIcon("./Icon/MainRush.png");
         mt = new JLabel("02:00");
@@ -354,7 +352,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         gamePanel.add(mt);
         gamePanel.add(mtic);
 
-        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
+        mainTimer = new CountdownTimer(2 * 60, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {

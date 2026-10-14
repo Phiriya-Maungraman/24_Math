@@ -224,7 +224,6 @@ public class FiveMode extends JFrame implements ActionListener, KeyListener, Mou
 
     }
 
-
     public void Symbols() {
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
