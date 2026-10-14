@@ -481,10 +481,28 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
                     break;
             }
 
-            // ถ้ามีตัวเลขอยู่ติดกันจะไม่ส่งคำตอบ
-            if (adjacentNumbers) {
+            boolean Error = input.matches(".*\\d\\s*\\(.*") || input.matches(".*\\)\\s*\\d.*");
+            if (adjacentNumbers || Error) {
+                sum.setText("can't process");
+                sum.setBounds(700, 400, 630, 100);
+                sum.setFont(new Font("", Font.PLAIN, 20));
+                
+                JLabel dummyLabel = new JLabel();
+                CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
+                    sum.setText("?");
+                    sum.setBounds(725, 400, 630, 100);
+                    sum.setFont(new Font("", Font.PLAIN, 50));
+                });
+                sumResetTimer.start(0, 1000);
+
+                randomizer.randomizeAll();
+                midTimer.start(0, 1000);
+                ip.setText("");
+                setNumberButtonsEnabled(true);
                 return;
             }
+
+
             if (!input.isEmpty()) {
                 try {
                     ReicveNum process = new ReicveNum(input);
@@ -495,7 +513,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "Rush");
+                    ScoreManager.checkScore(result, scr_num, "Four");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();

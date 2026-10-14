@@ -46,7 +46,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         event();
     }
 
-    public void ShowCurrentUser() {
+    public void ShowCurrentUser() { 
         userLabel = new JLabel("Player : " + currentUser);
         userLabel.setBounds(575, 45, 250, 30);
         userLabel.setFont(new Font("", Font.BOLD, 18));
@@ -146,7 +146,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
      * gamePanel.add(ht);
      */
 
-    public void RandomNumber() {
+    public void RandomNumber() { //หน้าต่างเลข 4 ตัว
         N1 = CreateButton(N1, "0", 100, Color.WHITE);
         N1.setBounds(100, 80, 100, 100);
         // N1 = new JButton("0");
@@ -167,7 +167,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     }
 
-    public void RandomButton() {
+    public void RandomButton() { //สร้างปุ่ม random และระบบสุ่มเลข
         ImageIcon raic = new ImageIcon("./Icon/RandomIcon.png");
         ra = new JButton("Random", raic);
         ra.setBounds(200, 220, 50, 25);
@@ -202,7 +202,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     }
 
-    public void ResetButton() {
+    public void ResetButton() { //ปุ่ม reset
         re = CreateButtonIcon(re, "Reset", new ImageIcon("./Icon/ResetIcon.png"), 20, Color.RED, Color.RED);
         re.setBounds(30, 250, 150, 50);
         re.setHorizontalTextPosition(JButton.RIGHT);
@@ -210,7 +210,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         re.setIconTextGap(10);
     }
 
-    public void InputNum() {
+    public void InputNum() { //ที่รับเลขจากการกดคลิก
         ip = new JTextField();
         ip.setBounds(30, 400, 50, 25);
         ip.setSize(600, 100);
@@ -228,7 +228,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         gamePanel.add(ft);
     }
 
-    public void Symbols() {
+    public void Symbols() { //สร้างเครื่องหมายทางคณิต
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
@@ -283,7 +283,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         gamePanel.add(sum);
     }
 
-    public void SettingButton() {
+    public void SettingButton() { //ปุ่มตั้งค้าและเกมโหมด
         st = CreateButtonIcon(st, "Setting", new ImageIcon("./Icon/SettingIcon.png"), 17, new Color(60, 74, 106),
                 Color.WHITE);
         st.setBounds(700, 10, 125, 30);
@@ -322,7 +322,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         form.setVisible(true);
     }
 
-    public void MidTimer() {
+    public void MidTimer() { //เวลาตรงกลางบนหน้าจอ
         mid = new JLabel("00:30");
         mid.setBounds(300, 5, 50, 30);
         mid.setSize(200, 60);
@@ -341,7 +341,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         });
     }
 
-    public void MainTimer() {
+    public void MainTimer() { //เวลาหลักซ้ายบน
         mt = new JLabel("05:00");
         mt.setBounds(25, 10, 50, 30);
         mt.setSize(100, 30);
@@ -371,7 +371,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setFocusable(false);
     }
 
-    public void ShowScore() {
+    public void ShowScore() { //โชว์คะแนนที่ได้
         scr = new JLabel("Score:");
         scr.setBounds(600, 250, 50, 25);
         scr.setSize(150, 50);
@@ -386,7 +386,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         gamePanel.add(scr_num);
     }
 
-    public void RankingBoard() {
+    public void RankingBoard() { //ปุ่ม Ranking
         ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15, new Color(60, 74, 106),
                 Color.WHITE);
         ldr.setBounds(120, 10, 125, 30);
@@ -400,9 +400,9 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
 
     public void Finally() {
         this.setTitle("24Math 4-digit number");
-        this.setSize(850, 750);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setSize(850, 750); //ขนาดหน้าจอ
+        this.setLocationRelativeTo(null); //ตรงกลาง
+        this.setResizable(false); //ขยายหุบไม่ได้
         gamePanel.setPreferredSize(new Dimension(850, 750));
         gamePanel.setMinimumSize(new Dimension(850, 750));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -473,10 +473,28 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                     break;
             }
 
-            // ถ้ามีตัวเลขอยู่ติดกันจะไม่ส่งคำตอบ
-            if (adjacentNumbers) {
+            boolean Error = input.matches(".*\\d\\s*\\(.*") || input.matches(".*\\)\\s*\\d.*");
+            if (adjacentNumbers || Error) {
+                sum.setText("can't process");
+                sum.setBounds(700, 400, 630, 100);
+                sum.setFont(new Font("", Font.PLAIN, 20));
+                
+                JLabel dummyLabel = new JLabel();
+                CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
+                    sum.setText("?");
+                    sum.setBounds(725, 400, 630, 100);
+                    sum.setFont(new Font("", Font.PLAIN, 50));
+                });
+                sumResetTimer.start(0, 1000);
+
+                randomizer.randomizeAll();
+                midTimer.start(0, 1000);
+                ip.setText("");
+                setNumberButtonsEnabled(true);
                 return;
             }
+
+
             if (!input.isEmpty()) {
                 try {
                     ReicveNum process = new ReicveNum(input);
