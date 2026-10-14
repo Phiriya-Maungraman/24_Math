@@ -96,6 +96,8 @@ public class SignUpForm extends JFrame implements MouseListener {
         this.setTitle("Sign Up");
         this.pack();
         this.setMinimumSize(this.getSize());
+        ImageIcon logo = new ImageIcon("./Icon/24Logo.png");
+        this.setIconImage(logo.getImage());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -131,7 +133,7 @@ public class SignUpForm extends JFrame implements MouseListener {
                 return;
             }
 
-            if (!Validator.isValidUserName(username)) {
+            if (!Validator.isValidUserName(password)) {
                 JOptionPane.showMessageDialog(this, "Password must contain at least one letter.", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
