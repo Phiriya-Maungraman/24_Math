@@ -32,7 +32,6 @@ public class SixSevenMode extends JFrame implements ActionListener, KeyListener,
         RandomButton();
         ResetButton();
         InputNum();
-        FunctionText();
         Symbols();
         Sum();
         SettingButton();
@@ -219,12 +218,6 @@ public class SixSevenMode extends JFrame implements ActionListener, KeyListener,
 
     }
 
-    public void FunctionText() {
-        ft = new JLabel("function text");
-        ft.setBounds(275, 360, 200, 25);
-        ft.setFont(new Font("", Font.BOLD, 20));
-        gamePanel.add(ft);
-    }
 
     public void Symbols() {
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");

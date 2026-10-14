@@ -20,10 +20,6 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
     private String currentUser = "Guest";
     JLabel userLabel;
 
-    public MainGui() {
-
-    }
-
     public MainGui(String username) {
         this.currentUser = username;
         Initial();
