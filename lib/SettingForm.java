@@ -117,6 +117,7 @@ public class SettingForm extends JDialog implements MouseListener{
         form.setVisible(true);
         this.dispose();
         owner.dispose();
+        
     }
 
     private void openFive(){

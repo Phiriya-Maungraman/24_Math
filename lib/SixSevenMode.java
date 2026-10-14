@@ -315,6 +315,12 @@ public class SixSevenMode extends JFrame implements ActionListener, KeyListener,
         form.setVisible(true);
     }
 
+    private void openTimesup() {
+        TimeupForm form = new TimeupForm(this, currentUser,currentUser);
+        form.setVisible(true);
+    }
+
+
     public void MidTimer() {
         mid = new JLabel("00:30");
         mid.setBounds(300, 5, 50, 30);
@@ -351,13 +357,14 @@ public class SixSevenMode extends JFrame implements ActionListener, KeyListener,
                 finalScore = 0;
             }
             UserManager.updateScore(currentUser, "SS", finalScore);
-            JOptionPane.showMessageDialog(this,
+            /*JOptionPane.showMessageDialog(this,
                     "Time's Up!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore,
                     "หมดเวลา",
                     JOptionPane.INFORMATION_MESSAGE);
 
             // JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " +
-            // finalScore);
+            // finalScore);*/
+            openTimesup();
             resetGame();
         });
         mt.setFocusable(false);

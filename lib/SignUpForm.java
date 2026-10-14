@@ -39,7 +39,7 @@ public class SignUpForm extends JFrame implements MouseListener {
 
         u1 = new JTextField();
         p1 = new JPasswordField();
-        p2 = new JTextField();
+        p2 = new JPasswordField();
         Dimension fieldSize = new Dimension(220, 30);
         u1.setPreferredSize(fieldSize);
         p1.setPreferredSize(fieldSize);

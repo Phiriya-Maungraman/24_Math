@@ -320,6 +320,12 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         form.setVisible(true);
     }
 
+    /** เปิดหน้าต่างวิธีการเล่น (How2Play) */
+    private void openTimesup() {
+        TimeupForm form = new TimeupForm(null, currentUser, currentUser);
+        form.setVisible(true);
+    }
+
     public void MidTimer() {
         mid = new JLabel("00:15");
         mid.setBounds(300, 5, 50, 30);
@@ -347,7 +353,7 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(2 * 60, mt, () -> {
+        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
@@ -356,13 +362,14 @@ public class RushMode extends JFrame implements ActionListener, KeyListener, Mou
                 finalScore = 0;
             }
             UserManager.updateScore(currentUser, "Rush", finalScore);
-            JOptionPane.showMessageDialog(this,
+            /*JOptionPane.showMessageDialog(this,
                     "Time's Up!\nผู้เล่น: " + currentUser + "\nYour sscore is: " + finalScore,
                     "หมดเวลา",
                     JOptionPane.INFORMATION_MESSAGE);
 
             // JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " +
-            // finalScore);
+            // finalScore);*/
+            openTimesup();
             resetGame();
         });
         mt.setFocusable(false);

@@ -317,6 +317,11 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         form.setVisible(true);
     }
 
+    private void openTimesup() {
+        TimeupForm form = new TimeupForm(this, currentUser,currentUser);
+        form.setVisible(true);
+    }
+
     public void MidTimer() {
         mid = new JLabel("00:30");
         mid.setBounds(300, 5, 50, 30);
@@ -344,7 +349,7 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(5 * 60, mt, () -> {
+        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
@@ -353,13 +358,14 @@ public class MainGui extends JFrame implements ActionListener, KeyListener, Mous
                 finalScore = 0;
             }
             UserManager.updateScore(currentUser, "Four", finalScore);
-            JOptionPane.showMessageDialog(this,
+            /*JOptionPane.showMessageDialog(this,
                     "Time's Up!\nผู้เล่น: " + currentUser + "\nYour score is: " + finalScore,
                     "หมดเวลา",
                     JOptionPane.INFORMATION_MESSAGE);
 
             // JOptionPane.showMessageDialog(this, "หมดเวลา! คะแนนของคุณคือ: " +
-            // finalScore);
+            // finalScore);*/
+            openTimesup();
             resetGame();
         });
         mt.setFocusable(false);
