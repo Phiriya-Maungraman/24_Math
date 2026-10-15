@@ -164,17 +164,15 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
             ip.setText("");
         });
 
-        // ตั้งค่าการทำงานเมื่อคลิกปุ่ม Random
         ra.addActionListener(e -> {
-            randomizer.randomizeAll(); // สุ่มเลขตามปกติ
-            midTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
+            randomizer.randomizeAll();
+            midTimer.start(0, 1000); 
 
             hasRandomized = true;
 
-            // เช็คว่าเป็นกดสุ่มครั้งแรกของเกมหรือไม่
             if (isFirstRandom) {
-                mainTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
-                isFirstRandom = false; // เปลี่ยนค่าเป็น false เพื่อไม่ให้มันสั่ง start ซ้ำอีกเวลาคลิกครั้งถัดไป
+                mainTimer.start(0, 1000); 
+                isFirstRandom = false;
             }
         });
 
@@ -204,7 +202,6 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -279,7 +276,7 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
     }
 
     private void openTimeUp(int score) {
-        TimeUpForm form = new TimeUpForm(this, "SS", currentUser, score);
+        TimeUpForm form = new TimeUpForm(this, "Four", currentUser, score);
         form.setVisible(true);
     }
 
@@ -293,7 +290,6 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
 
-        // "ถ้าเวลาหมด ให้สั่ง randomizer.randomizeAll()"
         midTimer = new CountdownTimer(30, mid, () -> {
             randomizer.randomizeAll();
             midTimer.start(0, 1000);
@@ -370,7 +366,6 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
         this.setVisible(true);
     }
 
-    // reset ค่า
     public void resetGame() {
 
         if (mainTimer != null) {
@@ -412,20 +407,18 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
                     && !N5.isEnabled();
 
             if (!isAllNumbersUsed) {
-                return; // ออกจากการทำงานทันที ไม่คำนวณผลลัพธ์
+                return; 
             }
 
             String input = ip.getText().trim();
             JButton[] numButtons = { N1, N2, N3, N4, N5 };
             boolean adjacentNumbers = false;
 
-            // เช็กคู่ปุ่มทั้งหมด
             for (int i = 0; i < numButtons.length; i++) {
                 for (int j = i + 1; j < numButtons.length; j++) {
                     String v1 = numButtons[i].getText();
                     String v2 = numButtons[j].getText();
 
-                    // เช็กทั้ง v1 ต่อด้วย v2 และ v2 ต่อด้วย v1
                     if (input.contains(v1 + v2) || input.contains(v2 + v1)) {
                         adjacentNumbers = true;
                         break;
@@ -467,9 +460,8 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "SS");
+                    ScoreManager.checkScore(result, scr_num, "Four");
 
-                    // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
 
                     CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
@@ -491,7 +483,7 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
                     });
                     sumResetTimer.start(0, 1000);
 
-                    randomizer.randomizeAll(); // สุ่มเลขชุดใหม่
+                    randomizer.randomizeAll();
                     midTimer.start(0, 1000);
                 }
             }
@@ -500,7 +492,6 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
 
         }
 
-        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
         else if (e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4
                 || e.getSource() == N5) {
 
@@ -542,11 +533,9 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getSource() == ip) {
-            // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
             String currentText = ip.getText();
             JButton[] numButtons = { N1, N2, N3, N4 };
 
-            // วนเช็คปุ่มตัวเลขทุกปุ่ม
             for (JButton btn : numButtons) {
                 if (btn != null) {
                     String btnText = btn.getText();
@@ -598,7 +587,6 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
     }
 
     public JButton[] getButtons() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getButtons'");
     }
 }

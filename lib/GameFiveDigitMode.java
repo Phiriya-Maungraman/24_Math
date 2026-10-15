@@ -163,17 +163,15 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
             ip.setText("");
         });
 
-        // ตั้งค่าการทำงานเมื่อคลิกปุ่ม Random
         ra.addActionListener(e -> {
-            randomizer.randomizeAll(); // สุ่มเลขตามปกติ
-            midTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
+            randomizer.randomizeAll();
+            midTimer.start(0, 1000);
 
             hasRandomized = true;
 
-            // เช็คว่าเป็นกดสุ่มครั้งแรกของเกมหรือไม่
             if (isFirstRandom) {
-                mainTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
-                isFirstRandom = false; // เปลี่ยนค่าเป็น false เพื่อไม่ให้มันสั่ง start ซ้ำอีกเวลาคลิกครั้งถัดไป
+                mainTimer.start(0, 1000);
+                isFirstRandom = false;
             }
         });
 
@@ -202,7 +200,6 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -292,7 +289,6 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
 
-        // "ถ้าเวลาหมด ให้สั่ง randomizer.randomizeAll()"
         midTimer = new CountdownTimer(30, mid, () -> {
             randomizer.randomizeAll();
             midTimer.start(0, 1000);
@@ -366,7 +362,6 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         this.setVisible(true);
     }
 
-    // reset ค่า
     public void resetGame() {
 
         if (mainTimer != null) {
@@ -415,13 +410,11 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
             JButton[] numButtons = { N1, N2, N3, N4, N5 };
             boolean adjacentNumbers = false;
 
-            // เช็กคู่ปุ่มทั้งหมด
             for (int i = 0; i < numButtons.length; i++) {
                 for (int j = i + 1; j < numButtons.length; j++) {
                     String v1 = numButtons[i].getText();
                     String v2 = numButtons[j].getText();
 
-                    // เช็กทั้ง v1 ต่อด้วย v2 และ v2 ต่อด้วย v1
                     if (input.contains(v1 + v2) || input.contains(v2 + v1)) {
                         adjacentNumbers = true;
                         break;
@@ -463,7 +456,7 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "Five");
+                    ScoreManager.checkScore(result, scr_num, "Four");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
@@ -496,7 +489,6 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
 
         }
 
-        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
         else if (e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4
                 || e.getSource() == N5) {
 

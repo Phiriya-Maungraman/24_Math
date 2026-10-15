@@ -163,17 +163,15 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
             ip.setText("");
         });
 
-        // ตั้งค่าการทำงานเมื่อคลิกปุ่ม Random
         ra.addActionListener(e -> {
-            randomizer.randomizeAll(); // สุ่มเลขตามปกติ
-            midTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
+            randomizer.randomizeAll();
+            midTimer.start(0, 1000);
 
             hasRandomized = true;
 
-            // เช็คว่าเป็นกดสุ่มครั้งแรกของเกมหรือไม่
             if (isFirstRandom) {
-                mainTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
-                isFirstRandom = false; // เปลี่ยนค่าเป็น false เพื่อไม่ให้มันสั่ง start ซ้ำอีกเวลาคลิกครั้งถัดไป
+                mainTimer.start(0, 1000); 
+                isFirstRandom = false;
             }
         });
 
@@ -202,7 +200,6 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -294,7 +291,6 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
         gamePanel.add(mid);
         gamePanel.add(midic);
 
-        // "ถ้าเวลาหมด ให้สั่ง randomizer.randomizeAll()"
         midTimer = new CountdownTimer(15, mid, () -> {
             randomizer.randomizeAll();
             midTimer.start(0, 1000);
@@ -316,7 +312,7 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
         gamePanel.add(mt);
         gamePanel.add(mtic);
 
-        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
+        mainTimer = new CountdownTimer(2 * 60, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
@@ -375,7 +371,6 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
         this.setVisible(true);
     }
 
-    // reset ค่า
     public void resetGame() {
 
         if (mainTimer != null) {
@@ -414,20 +409,18 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
             boolean isAllNumbersUsed = !N1.isEnabled() && !N2.isEnabled() && !N3.isEnabled() && !N4.isEnabled();
 
             if (!isAllNumbersUsed) {
-                return; // ออกจากการทำงานทันที ไม่คำนวณผลลัพธ์
+                return;
             }
 
             String input = ip.getText().trim();
             JButton[] numButtons = { N1, N2, N3, N4 };
             boolean adjacentNumbers = false;
 
-            // เช็กคู่ปุ่มทั้งหมด
             for (int i = 0; i < numButtons.length; i++) {
                 for (int j = i + 1; j < numButtons.length; j++) {
                     String v1 = numButtons[i].getText();
                     String v2 = numButtons[j].getText();
 
-                    // เช็กทั้ง v1 ต่อด้วย v2 และ v2 ต่อด้วย v1
                     if (input.contains(v1 + v2) || input.contains(v2 + v1)) {
                         adjacentNumbers = true;
                         break;
@@ -469,7 +462,7 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "Rush");
+                    ScoreManager.checkScore(result, scr_num, "Four");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
@@ -502,7 +495,6 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
 
         }
 
-        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
         else if (e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4) {
 
             JButton sourceButton = (JButton) e.getSource();
@@ -543,11 +535,9 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getSource() == ip) {
-            // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
             String currentText = ip.getText();
             JButton[] numButtons = { N1, N2, N3, N4 };
 
-            // วนเช็คปุ่มตัวเลขทุกปุ่ม
             for (JButton btn : numButtons) {
                 if (btn != null) {
                     String btnText = btn.getText();
@@ -599,7 +589,6 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
     }
 
     public JButton[] getButtons() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getButtons'");
     }
 }

@@ -85,12 +85,12 @@ public class TimeUpForm extends JDialog implements MouseListener {
     }
 
     public void timeupMenu() {
-        scr = CreateButtonIcon(scr, "", new ImageIcon("./Icon/Scoreic.png"), 50, new Color(77, 92, 128),
+        scr = CreateButtonIcon(scr, "240", new ImageIcon("./Icon/Scoreic.png"), 50, new Color(77, 92, 128),
                 Color.WHITE);
         scr.setBounds(25, 150, 200, 100);
         scr.addMouseListener(this);
 
-        high = CreateButtonIcon(high, "", new ImageIcon("./Icon/Highic.png"), 50, new Color(77, 92, 128),
+        high = CreateButtonIcon(high, "300", new ImageIcon("./Icon/Highic.png"), 50, new Color(77, 92, 128),
                 Color.WHITE);
         high.setBounds(250, 150, 200, 100);
         high.addMouseListener(this);
@@ -98,7 +98,7 @@ public class TimeUpForm extends JDialog implements MouseListener {
         tm = CreateJLable(tm, "TIME'S UP", 50, Color.WHITE);
         tm.setBounds(100, 0, 400, 100);
 
-        mode = CreateButton(mode, currentMode, 15);
+        mode = CreateButton(mode, "GameMode", 15);
         mode.setBounds(75, 100, 150, 25);
 
         pl = CreateJLable(pl, "Player : ", 20, new Color(61, 220, 151));
@@ -132,7 +132,7 @@ public class TimeUpForm extends JDialog implements MouseListener {
     }
 
     private void openSetting() {
-        SettingForm form = new SettingForm(owner, currentMode, username);
+        SettingForm form = new SettingForm(owner, currentMode, currentMode);
         form.setVisible(true);
 
     }

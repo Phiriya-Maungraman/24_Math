@@ -124,7 +124,7 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
         return button;
     }
 
-    public void RandomNumber() { // หน้าต่างเลข 4 ตัว
+    public void RandomNumber() {
         N1 = CreateButton(N1, "0", 100, Color.WHITE);
         N1.setBounds(100, 80, 100, 100);
 
@@ -139,7 +139,7 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
 
     }
 
-    public void RandomButton() { // สร้างปุ่ม random และระบบสุ่มเลข
+    public void RandomButton() { 
         ImageIcon raic = new ImageIcon("./Icon/RandomIcon.png");
         ra = new JButton("Random", raic);
         ra.setBounds(200, 220, 50, 25);
@@ -194,7 +194,6 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
-        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -315,7 +314,7 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
         mt.setFocusable(false);
     }
 
-    public void ShowScore() { // โชว์คะแนนที่ได้
+    public void ShowScore() {
         scr = new JLabel("Score:");
         scr.setBounds(600, 250, 50, 25);
         scr.setSize(150, 50);
@@ -330,7 +329,7 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
         gamePanel.add(scr_num);
     }
 
-    public void RankingBoard() { // ปุ่ม Ranking
+    public void RankingBoard() {
         ldr = CreateButtonIcon(ldr, "Ranking", new ImageIcon("./Icon/PointIcon.png"), 15, new Color(60, 74, 106),
                 Color.WHITE);
         ldr.setBounds(120, 10, 125, 30);
@@ -345,8 +344,8 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
     public void Finally() {
         this.setTitle("24Math 4-digit number");
         this.setSize(850, 750); // ขนาดหน้าจอ
-        this.setLocationRelativeTo(null); // ตรงกลาง
-        this.setResizable(false); // ขยายหุบไม่ได้
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
         gamePanel.setPreferredSize(new Dimension(850, 750));
         gamePanel.setMinimumSize(new Dimension(850, 750));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -355,7 +354,6 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
         this.setVisible(true);
     }
 
-    // reset ค่า
     public void resetGame() {
 
         if (mainTimer != null) {
@@ -394,20 +392,18 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
             boolean isAllNumbersUsed = !N1.isEnabled() && !N2.isEnabled() && !N3.isEnabled() && !N4.isEnabled();
 
             if (!isAllNumbersUsed) {
-                return; // ออกจากการทำงานทันที ไม่คำนวณผลลัพธ์
+                return;
             }
 
             String input = ip.getText().trim();
             JButton[] numButtons = { N1, N2, N3, N4 };
             boolean adjacentNumbers = false;
 
-            // เช็กคู่ปุ่มทั้งหมด
             for (int i = 0; i < numButtons.length; i++) {
                 for (int j = i + 1; j < numButtons.length; j++) {
                     String v1 = numButtons[i].getText();
                     String v2 = numButtons[j].getText();
 
-                    // เช็กทั้ง v1 ต่อด้วย v2 และ v2 ต่อด้วย v1
                     if (input.contains(v1 + v2) || input.contains(v2 + v1)) {
                         adjacentNumbers = true;
                         break;
@@ -450,7 +446,6 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
 
                     ScoreManager.checkScore(result, scr_num, "Four");
 
-                    // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
 
                     CountdownTimer sumResetTimer = new CountdownTimer(3, dummyLabel, () -> {
@@ -481,7 +476,6 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
 
         }
 
-        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
         else if (e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4) {
 
             JButton sourceButton = (JButton) e.getSource();
@@ -522,11 +516,9 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getSource() == ip) {
-            // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
             String currentText = ip.getText();
             JButton[] numButtons = { N1, N2, N3, N4 };
 
-            // วนเช็คปุ่มตัวเลขทุกปุ่ม
             for (JButton btn : numButtons) {
                 if (btn != null) {
                     String btnText = btn.getText();
@@ -577,7 +569,6 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
     }
 
     public JButton[] getButtons() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getButtons'");
     }
 }
