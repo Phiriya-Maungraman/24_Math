@@ -7,6 +7,13 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * คลาส GameSixSevenMode เป็นหน้าต่างเกมที่ให้ผู้เล่นสร้างสมการทางคณิตศาสตร์จากตัวเลข 5 หลัก
+ * โดยมีฟังก์ชันการทำงานต่าง ๆ เช่น การสุ่มตัวเลข การตรวจสอบคะแนน การนับเวลาถอยหลัง และการจัดการอินเทอร์เฟซผู้ใช้
+ * 
+ * @author 24Math Team
+ * */
+
 public class GameSixSevenMode extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
     JButton N1, N2, N3, N4, N5, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;

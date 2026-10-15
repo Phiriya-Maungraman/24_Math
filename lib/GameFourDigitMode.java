@@ -6,6 +6,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * คลาส GameFourDigitMode เป็นหน้าต่างเกมที่ให้ผู้เล่นสร้างสมการทางคณิตศาสตร์จากตัวเลข 4 หลัก
+ * โดยมีฟังก์ชันการทำงานต่าง ๆ เช่น การสุ่มตัวเลข การตรวจสอบคะแนน การนับเวลาถอยหลัง และการจัดการอินเทอร์เฟซผู้ใช้
+ * 
+ * @author 24Math Team
+ * */
 public class GameFourDigitMode extends JFrame implements ActionListener, KeyListener, MouseListener {
     Container cp;
     JButton N1, N2, N3, N4, re, ra, st, ht, ldr, plus, minus, multi, divide, op, cl, ent;
@@ -293,7 +299,7 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
         mt.setForeground(Color.WHITE);
         gamePanel.add(mt);
 
-        mainTimer = new CountdownTimer(5*60, mt, () -> {
+        mainTimer = new CountdownTimer(20, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
