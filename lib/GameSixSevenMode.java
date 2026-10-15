@@ -549,7 +549,7 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
         if (e.getSource() == ip) {
             // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
             String currentText = ip.getText();
-            JButton[] numButtons = { N1, N2, N3, N4 };
+            JButton[] numButtons = { N1, N2, N3, N4, N5};
 
             // สร้างตัวแปรเก็บข้อความที่เหลือ เพื่อใช้ตรวจสอบและตัดออกทีละตัว (รองรับกรณีเลขซ้ำกัน)
             String remainingText = currentText;

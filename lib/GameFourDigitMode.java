@@ -527,24 +527,27 @@ public class GameFourDigitMode extends JFrame implements ActionListener, KeyList
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getSource() == ip) {
+          if (e.getSource() == ip) {
             // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
             String currentText = ip.getText();
             JButton[] numButtons = { N1, N2, N3, N4 };
 
+           // สร้างตัวแปรเก็บข้อความที่เหลือ เพื่อใช้ตรวจสอบและตัดออกทีละตัว (รองรับกรณีเลขซ้ำกัน)
+            String remainingText = currentText;
+
             for (JButton btn : numButtons) {
                 if (btn != null) {
-                    String val = btn.getText();
+                    String btnText = btn.getText();
+                    int idx = remainingText.indexOf(btnText);
                     
-                    // เช็กว่าตัวเลขนี้ยังเหลืออยู่ในช่องพิมพ์หรือไม่
-                    boolean isStillUsed = currentText.contains(val);
-                    
-                    // ถ้ายังอยู่ให้ปิดปุ่ม (false) ถ้าถูกลบออกไปแล้วให้เปิดปุ่ม (true)
-                    btn.setEnabled(isStillUsed);
-                    
-                    // ถ้าเจอแล้วให้ลบออกจากข้อความชั่วคราว เพื่อป้องกันกรณีเลขซ้ำกันแล้วเปิด/ปิดผิดปุ่ม
-                    if (isStillUsed) {
-                        currentText = currentText.replaceFirst(val, "");
+                    if (idx != -1) {
+                        // ถ้ายังพบตัวเลขนี้อยู่ในช่องพิมพ์ ให้ปิดปุ่มนี้ไว้
+                        btn.setEnabled(false);
+                        // ตัดข้อความส่วนนั้นออก 1 ครั้ง เพื่อไม่ให้ไปนับซ้ำกับปุ่มอื่นที่มีเลขเดียวกัน
+                        remainingText = remainingText.substring(0, idx) + remainingText.substring(idx + btnText.length());
+                    } else {
+                        // ถ้าไม่พบแล้ว ให้เปิดใช้งานปุ่มนี้ตามปกติ
+                        btn.setEnabled(true);
                     }
                 }
             }

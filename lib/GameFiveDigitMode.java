@@ -545,23 +545,14 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         if (e.getSource() == ip) {
             // ดึงข้อความปัจจุบันหลังจากการลบเสร็จสิ้นแล้ว
             String currentText = ip.getText();
-            JButton[] numButtons = { N1, N2, N3, N4 };
+            JButton[] numButtons = { N1, N2, N3, N4, N5};
 
-            // สร้างตัวแปรเก็บข้อความที่เหลือ เพื่อใช้ตรวจสอบและตัดออกทีละตัว (รองรับกรณีเลขซ้ำกัน)
-            String remainingText = currentText;
-
+            // วนเช็คปุ่มตัวเลขทุกปุ่ม
             for (JButton btn : numButtons) {
                 if (btn != null) {
                     String btnText = btn.getText();
-                    int idx = remainingText.indexOf(btnText);
-                    
-                    if (idx != -1) {
-                        // ถ้ายังพบตัวเลขนี้อยู่ในช่องพิมพ์ ให้ปิดปุ่มนี้ไว้
-                        btn.setEnabled(false);
-                        // ตัดข้อความส่วนนั้นออก 1 ครั้ง เพื่อไม่ให้ไปนับซ้ำกับปุ่มอื่นที่มีเลขเดียวกัน
-                        remainingText = remainingText.substring(0, idx) + remainingText.substring(idx + btnText.length());
-                    } else {
-                        // ถ้าไม่พบแล้ว ให้เปิดใช้งานปุ่มนี้ตามปกติ
+
+                    if (!btn.isEnabled() && !currentText.contains(btnText)) {
                         btn.setEnabled(true);
                     }
                 }
