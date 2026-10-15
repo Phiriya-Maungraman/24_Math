@@ -316,7 +316,7 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
         gamePanel.add(mt);
         gamePanel.add(mtic);
 
-        mainTimer = new CountdownTimer(2 * 60, mt, () -> {
+        mainTimer = new CountdownTimer(1 * 10, mt, () -> {
             midTimer.stop();
             int finalScore = 0;
             try {
