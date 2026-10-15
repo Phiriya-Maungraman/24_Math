@@ -98,7 +98,7 @@ public class TimeUpForm extends JDialog implements MouseListener {
         tm = CreateJLable(tm, "TIME'S UP", 50, Color.WHITE);
         tm.setBounds(100, 0, 400, 100);
 
-        mode = CreateButton(mode, "GameMode", 15);
+        mode = CreateButton(mode, currentMode, 15);
         mode.setBounds(75, 100, 150, 25);
 
         pl = CreateJLable(pl, "Player : ", 20, new Color(61, 220, 151));

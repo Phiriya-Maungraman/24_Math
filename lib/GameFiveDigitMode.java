@@ -163,15 +163,17 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
             ip.setText("");
         });
 
+        // ตั้งค่าการทำงานเมื่อคลิกปุ่ม Random
         ra.addActionListener(e -> {
-            randomizer.randomizeAll();
-            midTimer.start(0, 1000);
+            randomizer.randomizeAll(); // สุ่มเลขตามปกติ
+            midTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
 
             hasRandomized = true;
 
+            // เช็คว่าเป็นกดสุ่มครั้งแรกของเกมหรือไม่
             if (isFirstRandom) {
-                mainTimer.start(0, 1000);
-                isFirstRandom = false;
+                mainTimer.start(0, 1000); // เริ่มนับเวลาถอยหลัง
+                isFirstRandom = false; // เปลี่ยนค่าเป็น false เพื่อไม่ให้มันสั่ง start ซ้ำอีกเวลาคลิกครั้งถัดไป
             }
         });
 
@@ -200,6 +202,7 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         ImageIcon entic = new ImageIcon("./Icon/EnterIcon.png");
         ent = new JButton("Enter", entic);
 
+        // plus = CreateButton(plus, "+", 50, Color.WHITE);
         plus = CreateButtonSymbols(plus, "+", 50, Color.WHITE);
         plus.setBounds(30, 550, 75, 75);
 
@@ -289,6 +292,7 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         mid.setBackground(Color.WHITE);
         gamePanel.add(mid);
 
+        // "ถ้าเวลาหมด ให้สั่ง randomizer.randomizeAll()"
         midTimer = new CountdownTimer(30, mid, () -> {
             randomizer.randomizeAll();
             midTimer.start(0, 1000);
@@ -362,6 +366,7 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
         this.setVisible(true);
     }
 
+    // reset ค่า
     public void resetGame() {
 
         if (mainTimer != null) {
@@ -410,11 +415,13 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
             JButton[] numButtons = { N1, N2, N3, N4, N5 };
             boolean adjacentNumbers = false;
 
+            // เช็กคู่ปุ่มทั้งหมด
             for (int i = 0; i < numButtons.length; i++) {
                 for (int j = i + 1; j < numButtons.length; j++) {
                     String v1 = numButtons[i].getText();
                     String v2 = numButtons[j].getText();
 
+                    // เช็กทั้ง v1 ต่อด้วย v2 และ v2 ต่อด้วย v1
                     if (input.contains(v1 + v2) || input.contains(v2 + v1)) {
                         adjacentNumbers = true;
                         break;
@@ -450,6 +457,11 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
                 try {
                     ReicveNum process = new ReicveNum(input);
                     String result = process.getresult();
+                    double decimalResult = Double.parseDouble(result);
+
+                    if (decimalResult % 1 != 0) {
+                        throw new ArithmeticException("decimal result not allowed");
+                    }
                     if (result.endsWith(".0")) {
                         result = result.substring(0, result.length() - 2);
                     }
@@ -489,6 +501,7 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
 
         }
 
+        // เมื่อมีการคลิกปุ่ม N1, N2, N3, N4
         else if (e.getSource() == N1 || e.getSource() == N2 || e.getSource() == N3 || e.getSource() == N4
                 || e.getSource() == N5) {
 
@@ -534,12 +547,21 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
             String currentText = ip.getText();
             JButton[] numButtons = { N1, N2, N3, N4 };
 
-            // วนเช็คปุ่มตัวเลขทุกปุ่ม
+            // สร้างตัวแปรเก็บข้อความที่เหลือ เพื่อใช้ตรวจสอบและตัดออกทีละตัว (รองรับกรณีเลขซ้ำกัน)
+            String remainingText = currentText;
+
             for (JButton btn : numButtons) {
                 if (btn != null) {
                     String btnText = btn.getText();
-
-                    if (!btn.isEnabled() && !currentText.contains(btnText)) {
+                    int idx = remainingText.indexOf(btnText);
+                    
+                    if (idx != -1) {
+                        // ถ้ายังพบตัวเลขนี้อยู่ในช่องพิมพ์ ให้ปิดปุ่มนี้ไว้
+                        btn.setEnabled(false);
+                        // ตัดข้อความส่วนนั้นออก 1 ครั้ง เพื่อไม่ให้ไปนับซ้ำกับปุ่มอื่นที่มีเลขเดียวกัน
+                        remainingText = remainingText.substring(0, idx) + remainingText.substring(idx + btnText.length());
+                    } else {
+                        // ถ้าไม่พบแล้ว ให้เปิดใช้งานปุ่มนี้ตามปกติ
                         btn.setEnabled(true);
                     }
                 }

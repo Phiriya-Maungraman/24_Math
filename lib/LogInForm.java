@@ -83,12 +83,14 @@ public class LogInForm extends JFrame implements MouseListener {
         String username = u1.getText().trim();
         String password = new String(p1.getPassword()).trim();
 
+        // 1. กรณีคลิกปุ่ม Login
         if (e.getSource() == lg) {
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please input Username and Password complete", "แจ้งเตือน", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
+            // ตรวจสอบข้อมูลกับ UserManager
             if (UserManager.authenticate(username, password)) {
                 JOptionPane.showMessageDialog(this, "Login success Welcome! " + username, "สำเร็จ", JOptionPane.INFORMATION_MESSAGE);
                 openGamepanel(username);

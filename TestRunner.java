@@ -83,6 +83,7 @@ public class TestRunner {
         static void TestKeepScore(){
         boolean threw = false;
         System.out.println("Test ScoreBoard");
+        // (a) User เก็บคะแนนแยกตามโหมด - ควรผ่านอยู่แล้ว
         User u = new User("tester", "pw", 1, 2, 3, 4);
         u.setHighScore("Five", 99);
         check("setHighScore Five -> getScore Five = 99", u.getScore("Five") == 99);
@@ -90,12 +91,20 @@ public class TestRunner {
         check("toCsvRow ถูกรูปแบบ", u.toCsvRow().equals("tester,pw,1,99,3,4"));
         check("โหมดที่ไม่รู้จักคืน 0", u.getScore("Unknown") == 0);
     }
-    
+    //*เปิด Maingui */
     public static void main(String[] args) {
+         //*ข้างล่างตรงนี้เป็น Test*/
          boolean ea = false;
         assert ea = true;
 
         System.out.println("== 24 Game ==");
+
+        //*Test 5 ตัว*
+        //ReicveNum
+        //ตรวจ username/password
+        //การให้คะแนน
+        //RandomNumber
+        //เก็บคะแนนแยกโหมด
 
         TestCal();
         TestUser();
