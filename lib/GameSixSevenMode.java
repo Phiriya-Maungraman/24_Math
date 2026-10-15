@@ -279,7 +279,7 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
     }
 
     private void openTimeUp(int score) {
-        TimeUpForm form = new TimeUpForm(this, "Four", currentUser, score);
+        TimeUpForm form = new TimeUpForm(this, "SS", currentUser, score);
         form.setVisible(true);
     }
 

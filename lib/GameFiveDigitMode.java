@@ -468,7 +468,7 @@ public class GameFiveDigitMode extends JFrame implements ActionListener, KeyList
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "Four");
+                    ScoreManager.checkScore(result, scr_num, "Five");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
