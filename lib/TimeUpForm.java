@@ -132,7 +132,7 @@ public class TimeUpForm extends JDialog implements MouseListener {
     }
 
     private void openSetting() {
-        SettingForm form = new SettingForm(owner, currentMode, currentMode);
+        SettingForm form = new SettingForm(owner, currentMode, username);
         form.setVisible(true);
 
     }

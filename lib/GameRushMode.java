@@ -469,7 +469,7 @@ public class GameRushMode extends JFrame implements ActionListener, KeyListener,
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "Four");
+                    ScoreManager.checkScore(result, scr_num, "Rush");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
