@@ -2,12 +2,20 @@ package lib.function;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+/**
+ * ตัวนับเวลาถอยหลังแบบ Swing แสดงผลในรูปแบบ mm:ss บน JLabel
+ */
+
 public class CountdownTimer {
     private Timer timer;
     private int initialSeconds;
     private int seconds;
     private JLabel targetLabel;
     private Runnable onTimeUp; 
+
+    /**
+     * สร้างตัวนับเวลาเปล่า (เวลา 0 วินาที, ไม่มี label และ callback)
+     */
 
     public CountdownTimer() {
         this.initialSeconds = 0;
@@ -16,10 +24,22 @@ public class CountdownTimer {
         this.onTimeUp = null;
     }
 
+    /**
+     * สร้างตัวนับเวลาโดยไม่มี callback เมื่อหมดเวลา
+     *
+     * @param seconds     เวลาตั้งต้นของการนับถอยหลัง (วินาที)
+     * @param targetLabel JLabel ที่จะแสดงเวลา
+     */
+
     public CountdownTimer(int seconds, JLabel targetLabel) {
         this(seconds, targetLabel, null);
     }
 
+    /**
+     * @param seconds     เวลาตั้งต้นของการนับถอยหลัง (วินาที)
+     * @param targetLabel JLabel ที่จะแสดงเวลา
+     * @param onTimeUp    callback ที่จะทำงานเมื่อหมดเวลา (เป็น null ได้)
+     */
     public CountdownTimer(int seconds, JLabel targetLabel, Runnable onTimeUp) {
         this.initialSeconds = seconds;
         this.seconds = seconds;
@@ -38,6 +58,7 @@ public class CountdownTimer {
         });
     }
 
+     /** อัปเดตข้อความบน JLabel ให้เป็นรูปแบบ mm:ss */
     private void updateTimeLabel() {
         if (targetLabel != null) {
             int m = seconds / 60;
@@ -46,6 +67,12 @@ public class CountdownTimer {
         }
     }
 
+    /**
+     * เริ่มนับถอยหลังใหม่จากเวลาตั้งต้น
+     *
+     * @param delay  initial delay ก่อน tick แรก (มิลลิวินาที)
+     * @param period ไม่ถูกใช้งานในโค้ดปัจจุบัน (Timer ใช้ช่วง 1000 ms คงที่)
+     */
     public void start(int delay, int period) {
         stop();
         this.seconds = initialSeconds;
@@ -56,6 +83,7 @@ public class CountdownTimer {
         timer.start();
     }
 
+    /** หยุดการนับถอยหลังทันที */
     public void stop() {
         if (timer != null && timer.isRunning()) {
             timer.stop(); // <--- หยุดทันทีแบบ Real-time ไม่มีดีเลย์

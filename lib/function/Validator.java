@@ -1,7 +1,17 @@
 package lib.function;
 
+/**
+ * รวมเมธอดตรวจสอบความถูกต้องของข้อมูล เช่น ชื่อผู้ใช้และรหัสผ่าน
+ */
 public class Validator {
 
+        /**
+     * เช็กว่าข้อความมีแต่ตัวอักษรหรือตัวเลขเท่านั้น ไม่ว่าง ไม่มีช่องว่างหรือสัญลักษณ์
+     *
+     * @param str ข้อความที่ต้องการตรวจสอบ
+     * @return true ถ้าเป็นตัวอักษรหรือตัวเลขล้วนและไม่ว่าง, false ถ้าเป็น null ว่าง
+     *         หรือมีอักขระอื่นปน
+     */
     public static boolean isAlphaNume(String str) {
 
         if (str == null || str.isEmpty())
@@ -14,7 +24,12 @@ public class Validator {
         }
         return true;
     }
-
+    /**
+     * เช็กว่าชื่อผู้ใช้มีตัวอักษรอย่างน้อย 1 ตัว
+     *
+     * @param name ชื่อผู้ใช้ที่ต้องการตรวจสอบ
+     * @return true ถ้ามีตัวอักษรอย่างน้อย 1 ตัว, false ถ้าไม่มี
+     */
     public static boolean isValidUserName(String name) {
         
         boolean hasLetter = false;
@@ -27,6 +42,12 @@ public class Validator {
         return hasLetter;
     }
 
+    /**
+     * เช็กว่ารหัสผ่านมีครบทั้ง 3 ประเภท คือ ตัวอักษร ตัวเลข และอักขระพิเศษ
+     *
+     * @param password รหัสผ่านที่ต้องการตรวจสอบ
+     * @return true ถ้ามีครบทั้ง 3 ประเภท, false ถ้าขาดประเภทใดประเภทหนึ่ง
+     */
     public static boolean isValidPassword(String password) {
 
         boolean hasLetter = false;
@@ -49,6 +70,13 @@ public class Validator {
         return hasLetter && hasDigit && hasSpecial;
     }
 
+    /**
+     * เช็กว่ารหัสผ่านที่พิมพ์ 2 ช่อง (รหัสผ่านกับยืนยันรหัสผ่าน) ตรงกันทุกตัว
+     *
+     * @param p1 รหัสผ่านที่พิมพ์ในช่องแรก
+     * @param p2 รหัสผ่านที่พิมพ์ในช่องยืนยัน
+     * @return true ถ้าตรงกันทุกตัว, false ถ้าไม่ตรงกันหรือเป็น null
+     */
     public static boolean isPasswordMatch(String p1, String p2) {
         if (p1 == null || p2 == null)
             return false;

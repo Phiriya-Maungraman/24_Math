@@ -83,12 +83,12 @@ public class SignUpForm extends JFrame implements MouseListener {
     }
 
     public void openGamepanel(String username) {
-        MainGui form = new MainGui(username);
+        GameFourDigitMode form = new GameFourDigitMode(username);
         form.setVisible(true);
     }
 
     public void openLogin() {
-        LoginForm form = new LoginForm();
+        LogInForm form = new LogInForm();
         form.setVisible(true);
     }
 

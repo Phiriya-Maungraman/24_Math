@@ -2,6 +2,9 @@ package lib.function;
 import java.io.*;
 import java.util.*;
 
+/**
+ * จัดการข้อมูลผู้ใช้ (login, สมัครสมาชิก, คะแนน, อันดับ) โดยเก็บในไฟล์ users.csv
+ */
 public class UserManager {
     private static final String FILE_PATH = "users.csv";
     private static List<User> users = new ArrayList<>();
@@ -66,6 +69,13 @@ public class UserManager {
     }
 
     /** ตรวจสอบการ Login (คืนค่า true เมื่อ username และ password ถูกต้อง) */
+    /**
+     * ตรวจสอบการ Login
+     * @param username ชื่อผู้ใช้ (ไม่สนตัวพิมพ์เล็ก/ใหญ่)
+     * @param password รหัสผ่าน (สนตัวพิมพ์เล็ก/ใหญ่)
+     * @return true เมื่อ username และ password ถูกต้อง, false ถ้าไม่ถูกต้อง
+     */
+
     public static boolean authenticate(String username, String password) {
         for (User u : users) {
             if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
@@ -76,6 +86,14 @@ public class UserManager {
     }
 
     /** สมัครสมาชิกใหม่ (ป้องกัน username ซ้ำ) */
+    /**
+     * สมัครสมาชิกใหม่ (ป้องกัน username ซ้ำ) และบันทึกลงไฟล์ทันที
+     *
+     * @param username ชื่อผู้ใช้ที่ต้องการสมัคร
+     * @param password รหัสผ่าน
+     * @return true เมื่อสมัครสำเร็จ, false ถ้ามีชื่อผู้ใช้นี้อยู่แล้ว
+     */
+
     public static boolean register(String username, String password) {
         for (User u : users) {
             if (u.getUsername().equalsIgnoreCase(username)) {
@@ -88,6 +106,13 @@ public class UserManager {
     }
 
     /** อัปเดตคะแนนสูงสุดของผู้เล่น */
+    /**
+     * อัปเดตคะแนนสูงสุดของผู้เล่น โดยจะบันทึกก็ต่อเมื่อคะแนนใหม่มากกว่าคะแนนเดิม
+     *
+     * @param username ชื่อผู้ใช้ที่ต้องการอัปเดตคะแนน
+     * @param mode     โหมดเกมที่ต้องการอัปเดต (ต้องเป็นค่าที่ User.getScore(mode) รองรับ)
+     * @param newScore คะแนนใหม่ที่ทำได้
+     */
     public static void updateScore(String username,String mode, int newScore) {
         for (User u : users) {
             if (u.getUsername().equalsIgnoreCase(username)) {
@@ -101,6 +126,14 @@ public class UserManager {
     }
 
     /** ดึงรายชื่อผู้เล่นเรียงตามคะแนนสูงสุด (สำหรับ RankingForm) */
+    /**
+     * ดึงรายชื่อผู้เล่นเรียงตามคะแนนสูงสุดของโหมดที่ระบุ (สำหรับ RankingForm)
+     * ผู้เล่นที่คะแนนเป็น 0 จะไม่ถูกนับรวม
+     *
+     * @param mode  โหมดเกมที่ต้องการดูอันดับ
+     * @param limit จำนวนอันดับสูงสุดที่ต้องการ (เช่น 10 = Top 10)
+     * @return รายชื่อผู้เล่นเรียงคะแนนจากมากไปน้อย ไม่เกิน limit คน
+     */
     public static List<User> getTopRankings(String mode,int limit) {
         // 1. ทำสำเนา List ขึ้นมาใหม่
         List<User> sortedList = new ArrayList<>();
@@ -130,6 +163,11 @@ public class UserManager {
     }
 
     /** สร้างไฟล์เริ่มต้นกรณีที่ยังไม่มีไฟล์ users.csv */
+    /**
+     * สร้างไฟล์ CSV เริ่มต้นที่มีเฉพาะบรรทัดหัวตาราง กรณีที่ยังไม่มีไฟล์ users.csv
+     *
+     * @param file ไฟล์ที่จะสร้าง
+     */
     private static void createDefaultCsv(File file) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write("username,password,scoreFour,scoreFive,scoreSS,scoreRush\n");
