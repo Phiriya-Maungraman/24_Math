@@ -472,7 +472,7 @@ public class GameSixSevenMode extends JFrame implements ActionListener, KeyListe
 
                     sum.setText(result);
 
-                    ScoreManager.checkScore(result, scr_num, "Four");
+                    ScoreManager.checkScore(result, scr_num, "SS");
 
                     // สร้าง JLabel เปล่าขึ้นมาเพื่อรับตัวเลขเวลานับถอยหลังไม่ให้กระทบ sum
                     JLabel dummyLabel = new JLabel();
